@@ -6,6 +6,8 @@ The goal of this project is to provide a way to model resources.  The essential 
 
 This should be easy to model as simple classes without having to consider what the format of representations actually look like.
 
+(see the <a href=https://github.com/biscuit314/PointW.WebApi.ResourceModel/wiki>wiki</a> for more details.)
+
 ## Getting Started
 The following walks through the evolution of a very simple resource model.  This will demonstrate how this project improves already cool out of the box stuff that Web Api comes with.  This is just an illustration, with lots of details like database access, exception handling left out.
 
