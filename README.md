@@ -24,12 +24,12 @@ Our goal:  when the system receives a GET request for a Person resource, we want
 	  }
 	}
 
-Following the "car" link relation will give us details about his car, which happens to be a Mustang.
+Following the "car" link relation will give us details about John's car, which happens to be a Mustang.
 
 That's where we're going.  Let's get there step by step.
 
 ### People who love people
-Let's start really simply.  I've got one resource **Person** 
+Let's start really simply.  I've got one resource **Person**, modelled as a `Person` class:
 
 	public class Person
 	{
@@ -38,7 +38,7 @@ Let's start really simply.  I've got one resource **Person**
 		public string Phone { get; set; }
 	}
 
-and one controller **PersonController** which has one method **Get**
+and one controller `PersonController` which has one method `Get()`
 
     public class PersonController : ApiController
     {
@@ -62,7 +62,7 @@ and one controller **PersonController** which has one method **Get**
     }
 
 
-I run this, do a GET request on **/api/person/1**, which gives the following:
+I run this, do a GET request on `/api/person/1`, which gives the following:
 
     {"Name":"John Doe","Address":"123 Main St.","Phone":null}
 
@@ -72,7 +72,7 @@ Nice, but there are a couple observations:
 * How do I provide link relations?
 
 ### Baby you can drive my car
-Moving on... A person may own a car (just one for now to keep it simple).  So I define a **Car** as:
+Moving on... A person may own a car (just one for now to keep it simple).  So I model a **Car** resource as a `Car` class, like this:
 
 	public class Car
 	{
@@ -81,7 +81,7 @@ Moving on... A person may own a car (just one for now to keep it simple).  So I 
 		public string SerialNumber { get; set; }
 	}
 
-and (again to keep it simple) here is the **CarController**
+and (again to keep it simple) here is the `CarController`
 
     public class CarController : ApiController
     {
@@ -103,7 +103,7 @@ and (again to keep it simple) here is the **CarController**
         }
     }
 
-I can now add car ownership to the **Person** model:
+I can now add car ownership to the `Person` class:
 
     public class Person
     {
@@ -113,33 +113,33 @@ I can now add car ownership to the **Person** model:
         public int MyCarId { get; set; }
     }
 
-And for the sake of this demo, adjust the **PersonController** dictionary:
+And for the sake of this demo, adjust the `PersonController` dictionary:
 
-        private Dictionary<int, Person> _people = new Dictionary<int, Person>
-        {
-            { 1, new Person { Name = "John Doe", Address = "123 Main St.", MyCarId = 1 } },
-            { 2, new Person { Name = "Sally Smith", Address = "321 Main St.", Phone="555-123-4567", MyCarId = 2} }
-        };
+    private Dictionary<int, Person> _people = new Dictionary<int, Person>
+    {
+        { 1, new Person { Name = "John Doe", Address = "123 Main St.", MyCarId = 1 } },
+        { 2, new Person { Name = "Sally Smith", Address = "321 Main St.", Phone="555-123-4567", MyCarId = 2} }
+    };
 
-Predictably, doing a GET on, say /api/person/1 now looks like this:
+Predictably, doing a GET `/api/person/1` now looks like this:
 
     {"Name":"John Doe","Address":"123 Main St.","Phone":null,"MyCarId":1}
 
 ## You can call me HAL
-As of this writing, this project contains only one media type formatter: HAL  Let's see how this project takes the Person / Car model, makes it more RESTful, and streams out respresentations in the HAL format.
+For now this project contains only one media type formatter: <a href="http://stateless.co/hal_specification.html">HAL</a>  Let's see how we can make the **Person** / **Car** stream out representations in the HAL format with link relations.
 
-After adding PointW.WebApi.ResourceModel to your web api project, add the HAL formatter to your config section.
+After adding `PointW.WebApi.ResourceModel` to your Web Api project, add the HAL formatter to your config section.
 
-            config.MapHttpAttributeRoutes();
-
-            config.Formatters.Clear();
-            config.Formatters.Add(new HalJsonMediaTypeFormatter { Indent = true });
-
-            config.EnsureInitialized();
+    config.MapHttpAttributeRoutes();
+    
+    config.Formatters.Clear();
+    config.Formatters.Add(new HalJsonMediaTypeFormatter { Indent = true });
+    
+    config.EnsureInitialized();
 
 _(Note: in practice I set Indent = true only #if DEBUG)_
 
-Now have **Person** and **Car** inherit from **Resource**
+Now have the `Person` and `Car` classes inherit from `Resource` (be sure to add `using PointW.WebApi.ResourceModel;`)
 
     public class Person : Resource
     {
@@ -148,7 +148,9 @@ Now have **Person** and **Car** inherit from **Resource**
         public string Phone { get; set; }
         public int MyCarId { get; set; }
     }
+
 ...
+
     public class Car : Resource
     {
         public string Make { get; set; }
@@ -156,30 +158,30 @@ Now have **Person** and **Car** inherit from **Resource**
         public string SerialNumber { get; set; }
     }
 
-When we deliver a **Person** resource, we want the representation to contain, not the ID of the car the person owns, but a _link_ so the client can GET the **Car** resource.  This is easy.  In the **PersonController** class, change the Get method as follows:
+When we deliver a **Person** resource, we want the representation to contain, not the ID of the car the person owns, but a _link_ so the client can GET the **Car** resource.  This is easy.  In the `PersonController` class, change the Get method as follows:
 
-        [Route("api/person/{personId}", Name = "GetPersonById")]
-        public IHttpActionResult Get(int personId)
+    [Route("api/person/{personId}", Name = "GetPersonById")]
+    public IHttpActionResult Get(int personId)
+    {
+        if (! _people.ContainsKey(personId))
         {
-            if (! _people.ContainsKey(personId))
-            {
-                return NotFound();
-            }
-
-            var person = _people[personId];
-
-            person.Relations.Add("car", 
-                new Link
-                {
-                    Href = Url.Link("GetCarById", new { carId = person.MyCarId })
-                });
-
-            return Ok(person);
+            return NotFound();
         }
+    
+        var person = _people[personId];
+        
+        person.Relations.Add("car", 
+            new Link
+            {
+                Href = Url.Link("GetCarById", new { carId = person.MyCarId })
+            });
+        
+        return Ok(person);
+    }
+        
+The heart of the Resource model is the `Relations` property.  Each Resource can have a list of other resources related to it.  In this case a **Person** is related to a **Car**, and we have just added a link from **Person** to the resource of **Car** she owns.
 
-The heart of the Resource model is the Relations property.  Each Resource can have a list of other resources related to it.  In this case a **Person** is related to a **Car**, and we have just added a link from **Person** to the resource of **Car** she owns.
-
-Now when GET **api/person/1** this is what we receive:
+Now when GET `api/person/1` this is what we receive:
 
     {
       "name": "John Doe",
@@ -198,7 +200,7 @@ This is much nicer:
 * null values do not appear in the representation (you can override this with the [AlwaysShow] attribute)
 * The client can navigate from this resource to the **Car** resource by dereferencing the "car" link relation
 
-We can tidy things up a bit:  We don't really need or want "myCarId" to appear in the representation.  We can model this by applying an attribute to that property:
+We can tidy things up a bit:  We don't really need "myCarId" to appear in the representation.  We can model this by applying an attribute to that property:
 
     public class Person : Resource
     {
@@ -218,7 +220,7 @@ Then we should add a "self" link relation to the Get() method of the PersonContr
             Href = Url.Link("GetPersonById", new { personId = personId })
         });
 
-GET **/api/person/1** and see that we have arrived at our goal:
+GET `/api/person/1` and see that we have arrived at our goal:
 
 	{
 	  "name": "John Doe",
@@ -232,4 +234,3 @@ GET **/api/person/1** and see that we have arrived at our goal:
 		}
 	    }
 	}
-
