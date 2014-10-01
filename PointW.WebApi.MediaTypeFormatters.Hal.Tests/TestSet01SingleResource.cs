@@ -683,7 +683,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
 
             // {
             //     "_links": {
-            //       "items": [{
+            //       "item": [{
             //           "href": "/first_item"
             //       },{
             //           "href": "/second_item"
