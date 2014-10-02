@@ -1,4 +1,4 @@
-﻿namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests.TestResources
+﻿namespace PointW.WebApi.ResourceModel.TestResources
 {
     public class DerivedResource : BasicResource
     {

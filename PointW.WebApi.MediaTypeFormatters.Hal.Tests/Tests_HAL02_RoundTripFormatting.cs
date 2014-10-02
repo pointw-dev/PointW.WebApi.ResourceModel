@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
-using PointW.WebApi.MediaTypeFormatters.Hal.Tests.TestResources;
+using PointW.WebApi.ResourceModel.TestResources;
 using PointW.WebApi.ResourceModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
 {
     [TestClass]
-    public class TestSet02RoundTripFormatting
+    public class Tests_HAL02_RoundTripFormatting
     {
         [TestMethod]
         public void roundTrip_basic_typeAndDataCorrect()

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
-using PointW.WebApi.MediaTypeFormatters.Hal.Tests.TestResources;
+using PointW.WebApi.ResourceModel.TestResources;
 using PointW.WebApi.ResourceModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
 {
     [TestClass]
-    public class TestSet03ResourceCollections
+    public class Tests_HAL03_ResourceCollections
     {
         private HalJsonMediaTypeFormatter _formatter;
         private SimpleResourceList<BasicResource> _list;

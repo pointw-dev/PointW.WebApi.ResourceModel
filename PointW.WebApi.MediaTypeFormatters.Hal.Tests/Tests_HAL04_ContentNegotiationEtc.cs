@@ -5,14 +5,14 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Web.Http;
 using FluentAssertions;
-using PointW.WebApi.MediaTypeFormatters.Hal.Tests.TestControllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
+using PointW.WebApi.ResourceModel.TestControllers;
 
 namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
 {
     [TestClass]
-    public class TestSet04ContentNegotiationEtc
+    public class Tests_HAL04_ContentNegotiationEtc
     {
         private BasicController _controller;
 

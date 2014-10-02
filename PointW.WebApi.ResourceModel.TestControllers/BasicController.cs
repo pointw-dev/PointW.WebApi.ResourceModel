@@ -1,11 +1,13 @@
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
+using System.Security.Policy;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web.Http;
-using PointW.WebApi.MediaTypeFormatters.Hal.Tests.TestResources;
-using PointW.WebApi.ResourceModel;
+using PointW.WebApi.ResourceModel.TestResources;
 
-namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests.TestControllers
+namespace PointW.WebApi.ResourceModel.TestControllers
 {
     [RoutePrefix("api/basic")]
     public class BasicController : ApiController
@@ -38,8 +40,8 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests.TestControllers
         }
 
 
-        
-        [Route("{productId:int}", Name="GetById")]
+
+        [Route("{productId:int}", Name = "GetById")]
         public IHttpActionResult GetProduct(int id)
         {
             var rtn = _fakeDatabase.Items.FirstOrDefault(i => i.Id == id);
@@ -52,7 +54,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests.TestControllers
 
             var href = Url.Link("GetById", new { productId = id });
             rtn.Relations.Add("self", new Link { Href = href });
-            
+
             return Ok(rtn);
         }
     }

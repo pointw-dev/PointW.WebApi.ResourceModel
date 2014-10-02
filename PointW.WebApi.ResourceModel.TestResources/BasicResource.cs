@@ -1,6 +1,4 @@
-﻿using PointW.WebApi.ResourceModel;
-
-namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests.TestResources
+﻿namespace PointW.WebApi.ResourceModel.TestResources
 {
     public class BasicResource : Resource
     {

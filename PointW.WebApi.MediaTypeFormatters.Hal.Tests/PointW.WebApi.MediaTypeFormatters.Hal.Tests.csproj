@@ -73,22 +73,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="TestControllers\BasicController.cs" />
-    <Compile Include="TestSet04ContentNegotiationEtc.cs" />
-    <Compile Include="TestSet03ResourceCollections.cs" />
-    <Compile Include="TestResources\DerivedResource.cs" />
-    <Compile Include="TestResources\ProductResource.cs" />
-    <Compile Include="TestResources\ResourceWithEmbeddedLists.cs" />
-    <Compile Include="TestResources\ResourceWithMultitypeEmbeddeds.cs" />
-    <Compile Include="TestResources\RecursiveResource.cs" />
-    <Compile Include="TestResources\ResourceWithEmbeddedProducts.cs" />
-    <Compile Include="TestResources\ResourceWithHiddenId.cs" />
-    <Compile Include="TestResources\ResourceWithAlwaysShowProperty.cs" />
-    <Compile Include="TestResources\ResourceWithNullables.cs" />
-    <Compile Include="TestResources\BasicResource.cs" />
-    <Compile Include="TestResources\ResourceWithDates.cs" />
-    <Compile Include="TestSet02RoundTripFormatting.cs" />
-    <Compile Include="TestSet01SingleResource.cs" />
+    <Compile Include="Tests_HAL04_ContentNegotiationEtc.cs" />
+    <Compile Include="Tests_HAL03_ResourceCollections.cs" />
+    <Compile Include="Tests_HAL02_RoundTripFormatting.cs" />
+    <Compile Include="Tests_HAL01_SingleResource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestUtilities.cs" />
   </ItemGroup>
@@ -96,6 +84,14 @@
     <ProjectReference Include="..\PointW.WebApi.MediaTypeFormatters.Hal\PointW.WebApi.MediaTypeFormatters.Hal.csproj">
       <Project>{81edf30f-3030-42f3-a28a-96e72dc37cf1}</Project>
       <Name>PointW.WebApi.MediaTypeFormatters.Hal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PointW.WebApi.ResourceModel.TestControllers\PointW.WebApi.ResourceModel.TestControllers.csproj">
+      <Project>{58665566-AD6A-4DA8-A086-2ED00EC25F09}</Project>
+      <Name>PointW.WebApi.ResourceModel.TestControllers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PointW.WebApi.ResourceModel.TestResources\PointW.WebApi.ResourceModel.TestResources.csproj">
+      <Project>{EC6979C6-0A13-490A-B1F1-D3E257A7985F}</Project>
+      <Name>PointW.WebApi.ResourceModel.TestResources</Name>
     </ProjectReference>
     <ProjectReference Include="..\PointW.WebApi.ResourceModel\PointW.WebApi.ResourceModel.csproj">
       <Project>{E696A2C9-C752-4BC0-AAF9-AE375017C2DF}</Project>
