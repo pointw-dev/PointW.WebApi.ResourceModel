@@ -78,12 +78,15 @@
     <Compile Include="Tests_HAL02_RoundTripFormatting.cs" />
     <Compile Include="Tests_HAL01_SingleResource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PointW.WebApi.MediaTypeFormatters.Hal\PointW.WebApi.MediaTypeFormatters.Hal.csproj">
       <Project>{81edf30f-3030-42f3-a28a-96e72dc37cf1}</Project>
       <Name>PointW.WebApi.MediaTypeFormatters.Hal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PointW.WebApi.MediaTypeFormatters.TestHelpers\PointW.WebApi.MediaTypeFormatters.TestHelpers.csproj">
+      <Project>{1162eb28-743a-4be4-86d8-81ac2325d5db}</Project>
+      <Name>PointW.WebApi.MediaTypeFormatters.TestHelpers</Name>
     </ProjectReference>
     <ProjectReference Include="..\PointW.WebApi.ResourceModel.TestControllers\PointW.WebApi.ResourceModel.TestControllers.csproj">
       <Project>{58665566-AD6A-4DA8-A086-2ED00EC25F09}</Project>

@@ -39,7 +39,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
         {
             // arrange
             // act
-            var result = TestUtilities.FormatObject(_basicResource, _formatter);
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
 
             // assert
             result.Should().NotBeEmpty();
@@ -59,7 +59,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
         {
             // arrange
             // act
-            var result = TestUtilities.FormatObject(_basicResource, _formatter);
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
 
             // assert
             result.Should().Contain("_links");
@@ -74,7 +74,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             _basicResource.Relations = null;
 
             // act
-            var result = TestUtilities.FormatObject(_basicResource, _formatter);
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
 
             // assert
             result.Should().NotContain("_links");
@@ -87,7 +87,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
         {
             // arrange
             // act
-            var result = TestUtilities.FormatObject(_basicResource, _formatter);
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
 
             var o = JObject.Parse(result);
             var name = (string)o["name"];
@@ -105,7 +105,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             _basicResource.Relations.Add("self", new Link { Href = "selfhref" });
 
             // act
-            var result = TestUtilities.FormatObject(_basicResource, _formatter);
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
             var o = JObject.Parse(result);
             var self = o["_links"]["self"];
             var href = (string)self["href"];
@@ -124,7 +124,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             _basicResource.Relations.Add("boss", new Link { Href = "bosshref" });
 
             // act
-            var result = TestUtilities.FormatObject(_basicResource, _formatter);
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
 
             var o = JObject.Parse(result);
             var self = o["_links"]["self"];
@@ -148,7 +148,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             _basicResource.Relations.Add("self", new Link { Href = "selfhref" });
 
             // act
-            var result = TestUtilities.FormatObject(_basicResource, _formatter);
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
 
             // assert
             result.Should().NotContain("templated");
@@ -167,7 +167,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             _basicResource.Relations.Add("boss", new Link { Href = "http://somedomain/api/boss/{bossId}" });
 
             // act
-            var result = TestUtilities.FormatObject(_basicResource, _formatter);
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
             
             var o = JObject.Parse(result);
             var boss = o["_links"]["boss"];
@@ -186,7 +186,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             _basicResource.Relations.Add("self", new Link { Href = "selfhref" });
 
             // act
-            var result = TestUtilities.FormatObject(_basicResource, _formatter);
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
 
             // assert
             result.Should().NotContain("deprecation");
@@ -208,7 +208,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             });
 
             // act
-            var result = TestUtilities.FormatObject(_basicResource, _formatter);
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
 
             var o = JObject.Parse(result);
             var boss = o["_links"]["boss"];
@@ -227,7 +227,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             var resource = new {Name = "Pat"};
 
             //act
-            var result = TestUtilities.FormatObject(resource, _formatter);
+            var result = TestHelpers.Format.FormatObject(resource, _formatter);
 
             // assert
             result.Should().NotContain("_links");
@@ -244,7 +244,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             var resource = new { Name = "Pat", Car = new BasicResource { Name = "Pat Smith" } };
 
             //act
-            var result = TestUtilities.FormatObject(resource, _formatter);
+            var result = TestHelpers.Format.FormatObject(resource, _formatter);
 
             // assert
             result.Should().Contain("_links");
@@ -260,7 +260,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             _basicResource.Name = null;
 
             // act
-            var result = TestUtilities.FormatObject(_basicResource, _formatter);
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
 
             // assert
             result.Should().NotContain("name");
@@ -280,7 +280,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             _basicResource.Name = "";
 
             // act
-            var result = TestUtilities.FormatObject(_basicResource, _formatter);
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
 
             // assert
             result.Should().Contain("name");
@@ -296,7 +296,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             // resource.Name (string) and resource.Number (int?) are not set and should not appear
 
             // act
-            var result = TestUtilities.FormatObject(resource, _formatter);
+            var result = TestHelpers.Format.FormatObject(resource, _formatter);
 
             // assert
             result.Should().NotContain("name");
@@ -316,7 +316,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             };
 
             // act
-            var result = TestUtilities.FormatObject(resource, _formatter);
+            var result = TestHelpers.Format.FormatObject(resource, _formatter);
 
             // assert
             result.Should().NotContain("internalId");
@@ -338,7 +338,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             };
 
             // act
-            var result = TestUtilities.FormatObject(resource, _formatter);
+            var result = TestHelpers.Format.FormatObject(resource, _formatter);
 
             // assert
             result.Should().Contain("name");
@@ -356,7 +356,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             // resource.Number (int?) is not set, but should appear because of [AlwaysShow]
 
             // act
-            var result = TestUtilities.FormatObject(resource, _formatter);
+            var result = TestHelpers.Format.FormatObject(resource, _formatter);
 
             // assert
             result.Should().NotContain("name");
@@ -375,7 +375,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             };
 
             // act
-            var result = TestUtilities.FormatObject(resource, _formatter);
+            var result = TestHelpers.Format.FormatObject(resource, _formatter);
 
             // assert
             result.Should().NotContain("_embedded");
@@ -398,7 +398,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             };
         
             // act
-            var result = TestUtilities.FormatObject(resource, _formatter);
+            var result = TestHelpers.Format.FormatObject(resource, _formatter);
             
             // assert
             result.Should().Contain("_embedded");
@@ -420,7 +420,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             };
 
             // act
-            var result = TestUtilities.FormatObject(resource, _formatter);
+            var result = TestHelpers.Format.FormatObject(resource, _formatter);
 
             var o = JObject.Parse(result);
             var embedded = o["_embedded"];
@@ -451,7 +451,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             };
 
             // act
-            var result = TestUtilities.FormatObject(resource, _formatter);
+            var result = TestHelpers.Format.FormatObject(resource, _formatter);
 
             // assert
             result.Should().Contain("_embedded");
@@ -478,7 +478,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             };
 
             // act
-            var result = TestUtilities.FormatObject(resource, _formatter);
+            var result = TestHelpers.Format.FormatObject(resource, _formatter);
 
             var o = JObject.Parse(result);
             var embedded = o["_embedded"];
@@ -512,7 +512,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             };
 
             // act
-            var result = TestUtilities.FormatObject(resource, _formatter);
+            var result = TestHelpers.Format.FormatObject(resource, _formatter);
 
             var o = JObject.Parse(result);
             var embedded = o["_embedded"];
@@ -543,7 +543,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             resource.Car.Relations.Add("warranty", new Link { Href = "warrantyLink" });
 
             // act
-            var result = TestUtilities.FormatObject(resource, _formatter);
+            var result = TestHelpers.Format.FormatObject(resource, _formatter);
 
             var o = JObject.Parse(result);
             var embedded = o["_embedded"];
@@ -583,7 +583,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
 
 
             // act
-            var result = TestUtilities.FormatObject(outerResource, _formatter);
+            var result = TestHelpers.Format.FormatObject(outerResource, _formatter);
 
             var o = JObject.Parse(result);
             var innerEmbedded = o["_embedded"]["nestedResource"]["_embedded"]["nestedResource"];
@@ -605,7 +605,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             AddOneQualifierToResource();
 
             // act
-            var result = TestUtilities.FormatObject(_basicResource, _formatter);
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
 
             // assert
             result.Should().Contain("curies");
@@ -620,7 +620,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             AddOneQualifierToResource();
 
             // act
-            var result = TestUtilities.FormatObject(_basicResource, _formatter);
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
             
             var o = JObject.Parse(result);
             var curies = o["_links"]["curies"];
@@ -639,7 +639,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             AddOneQualifierToResource();
 
             // act
-            var result = TestUtilities.FormatObject(_basicResource, _formatter);
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
 
             var o = JObject.Parse(result);
             var curies = o["_links"]["curies"];
@@ -658,7 +658,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             var noIndentFormatter = new HalJsonMediaTypeFormatter {Indent = false};
 
             // act
-            var result = TestUtilities.FormatObject(_basicResource, noIndentFormatter);
+            var result = TestHelpers.Format.FormatObject(_basicResource, noIndentFormatter);
             var lines = result.Count(c => c == '\n');
             
             // assert

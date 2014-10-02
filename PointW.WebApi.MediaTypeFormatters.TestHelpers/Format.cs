@@ -1,12 +1,13 @@
-using System.IO;
+﻿using System.IO;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Text;
 
-namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
+namespace PointW.WebApi.MediaTypeFormatters.TestHelpers
 {
-    public class TestUtilities
+    public class Format
     {
-        public static string FormatObject(object toFormat, HalJsonMediaTypeFormatter formatter)
+        public static string FormatObject(object toFormat, BaseJsonMediaTypeFormatter formatter)
         {
             string result;
             using (var stream = new MemoryStream())
@@ -20,16 +21,14 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
 
 
 
-        public static T PerformRoundTrip<T>(object o) where T : class
+        public static TResource PerformRoundTrip<TResource>(object o, BaseJsonMediaTypeFormatter formatter) where TResource : class
         {
-            var formatter = new HalJsonMediaTypeFormatter();
-
             var json = FormatObject(o, formatter);
 
             var stream = GenerateStreamFromString(json);
             var content = new StreamContent(stream);
 
-            return formatter.ReadFromStreamAsync(typeof(T), stream, content, null).Result as T;
+            return formatter.ReadFromStreamAsync(typeof(TResource), stream, content, null).Result as TResource;
         }
 
 

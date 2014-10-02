@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointW.WebApi.MediaTypeForm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests", "PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests\PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests.csproj", "{97996A5D-83A5-4697-973B-0A840405D2C2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointW.WebApi.MediaTypeFormatters.TestHelpers", "PointW.WebApi.MediaTypeFormatters.TestHelpers\PointW.WebApi.MediaTypeFormatters.TestHelpers.csproj", "{1162EB28-743A-4BE4-86D8-81AC2325D5DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{97996A5D-83A5-4697-973B-0A840405D2C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97996A5D-83A5-4697-973B-0A840405D2C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97996A5D-83A5-4697-973B-0A840405D2C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1162EB28-743A-4BE4-86D8-81AC2325D5DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1162EB28-743A-4BE4-86D8-81AC2325D5DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1162EB28-743A-4BE4-86D8-81AC2325D5DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1162EB28-743A-4BE4-86D8-81AC2325D5DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,5 +68,6 @@ Global
 		{EC6979C6-0A13-490A-B1F1-D3E257A7985F} = {22246621-1061-4380-80DC-D35589625C60}
 		{58665566-AD6A-4DA8-A086-2ED00EC25F09} = {22246621-1061-4380-80DC-D35589625C60}
 		{97996A5D-83A5-4697-973B-0A840405D2C2} = {22246621-1061-4380-80DC-D35589625C60}
+		{1162EB28-743A-4BE4-86D8-81AC2325D5DB} = {22246621-1061-4380-80DC-D35589625C60}
 	EndGlobalSection
 EndGlobal

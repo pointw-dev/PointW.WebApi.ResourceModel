@@ -10,6 +10,14 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
     [TestClass]
     public class Tests_HAL02_RoundTripFormatting
     {
+        private HalJsonMediaTypeFormatter _formatter;
+
+        [TestInitialize]
+        public void Setup()
+        {
+            _formatter = new HalJsonMediaTypeFormatter();
+        }
+
         [TestMethod]
         public void roundTrip_basic_typeAndDataCorrect()
         {
@@ -20,7 +28,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             };
 
             // act
-            var result = TestUtilities.PerformRoundTrip<BasicResource>(test);
+            var result = TestHelpers.Format.PerformRoundTrip<BasicResource>(test, _formatter);
 
             // assert
             result.Name.Should().Be("Pat Smith");
@@ -44,7 +52,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             };
 
             // act
-            var result = TestUtilities.PerformRoundTrip<ResourceWithEmbeddedProducts>(test);
+            var result = TestHelpers.Format.PerformRoundTrip<ResourceWithEmbeddedProducts>(test, _formatter);
 
             // assert
             result.Should().BeOfType<ResourceWithEmbeddedProducts>();
@@ -73,7 +81,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             };
 
             // act
-            var result = TestUtilities.PerformRoundTrip<RecursiveResource>(test);
+            var result = TestHelpers.Format.PerformRoundTrip<RecursiveResource>(test, _formatter);
             var mid = result.NestedResource;
             var inner = mid.NestedResource;
 
@@ -109,7 +117,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             });
 
             // act
-            var obj = TestUtilities.PerformRoundTrip<SimpleResourceList<BasicResource>>(testList);
+            var obj = TestHelpers.Format.PerformRoundTrip<SimpleResourceList<BasicResource>>(testList, _formatter);
 
             // assert
             obj.Should().BeOfType<SimpleResourceList<BasicResource>>();
@@ -147,7 +155,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             });
             
             // act
-            var obj = TestUtilities.PerformRoundTrip<SimpleResourceList<BasicResource>>(testList);
+            var obj = TestHelpers.Format.PerformRoundTrip<SimpleResourceList<BasicResource>>(testList, _formatter);
             var alpha = obj.Items.First(i => i.Name == "alpha");
             var beta = obj.Items.First(i => i.Name == "beta");
             
@@ -186,7 +194,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             });
 
             // act
-            var obj = TestUtilities.PerformRoundTrip<SimpleResourceList<BasicResource>>(testList);
+            var obj = TestHelpers.Format.PerformRoundTrip<SimpleResourceList<BasicResource>>(testList, _formatter);
             var beta = obj.Items.First(i => i.Name == "beta") as DerivedResource;
 
             // assert

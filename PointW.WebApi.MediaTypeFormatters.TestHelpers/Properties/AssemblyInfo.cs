@@ -1,15 +1,16 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PointW.WebApi.MediaTypeFormatters.Hal.Tests")]
-[assembly: AssemblyDescription("MS-Tests exercising the HAL Formatter")]
+[assembly: AssemblyTitle("PointW.WebApi.MediaTypeFormatters.TestHelpers")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("pointw.com")]
-[assembly: AssemblyProduct("PointW.WebApi.MediaTypeFormatters.Hal.Tests")]
-[assembly: AssemblyCopyright("Copyright © pointw.com 2014")]
+[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyProduct("PointW.WebApi.MediaTypeFormatters.TestHelpers")]
+[assembly: AssemblyCopyright("Copyright © Microsoft 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("eb24efd9-a61c-4a33-a550-c32bad162fac")]
+[assembly: Guid("5bdc49e5-e310-48b8-83e7-11280c2a0e59")]
 
 // Version information for an assembly consists of the following four values:
 //

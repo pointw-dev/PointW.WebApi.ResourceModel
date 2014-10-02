@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("PointW.WebApi.ResourceModel")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("PointW.WebApi.com")]
+[assembly: AssemblyCompany("pointw.com")]
 [assembly: AssemblyProduct("PointW.WebApi.ResourceModel")]
-[assembly: AssemblyCopyright("Copyright © PointW.WebApi.com 2014")]
+[assembly: AssemblyCopyright("Copyright © pointw.com 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

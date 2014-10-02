@@ -78,6 +78,10 @@
       <Project>{4E57B4A4-4929-429C-8F57-1CADDB312CD3}</Project>
       <Name>PointW.WebApi.MediaTypeFormatters.CollectionJson</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PointW.WebApi.MediaTypeFormatters.TestHelpers\PointW.WebApi.MediaTypeFormatters.TestHelpers.csproj">
+      <Project>{1162eb28-743a-4be4-86d8-81ac2325d5db}</Project>
+      <Name>PointW.WebApi.MediaTypeFormatters.TestHelpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PointW.WebApi.ResourceModel.TestResources\PointW.WebApi.ResourceModel.TestResources.csproj">
       <Project>{EC6979C6-0A13-490A-B1F1-D3E257A7985F}</Project>
       <Name>PointW.WebApi.ResourceModel.TestResources</Name>

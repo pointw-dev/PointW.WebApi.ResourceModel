@@ -69,7 +69,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             // arrange
 
             // act
-            var result = TestUtilities.FormatObject(_list, _formatter);
+            var result = TestHelpers.Format.FormatObject(_list, _formatter);
 
             // assert
             result.Should().Contain("selfhref");
@@ -87,7 +87,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             // arrange
 
             // act
-            var result = TestUtilities.FormatObject(_list, _formatter);
+            var result = TestHelpers.Format.FormatObject(_list, _formatter);
 
             var o = JObject.Parse(result);
             var items = o["_embedded"]["items"];
@@ -139,7 +139,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             };
 
             // act
-            var result = TestUtilities.FormatObject(resource, _formatter);
+            var result = TestHelpers.Format.FormatObject(resource, _formatter);
 
             var o = JObject.Parse(result);
             var cars = o["_embedded"]["cars"];
