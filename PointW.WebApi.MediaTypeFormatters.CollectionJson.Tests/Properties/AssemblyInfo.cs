@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PointW.WebApi.MediaTypeFormatters.TestUtilities")]
+[assembly: AssemblyTitle("PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("PointW.WebApi.MediaTypeFormatters.TestUtilities")]
+[assembly: AssemblyProduct("PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("70cee066-69f9-4465-a678-a698567a8bd8")]
+[assembly: Guid("678e063b-cb73-4c8b-a84e-bbcdc48592af")]
 
 // Version information for an assembly consists of the following four values:
 //
