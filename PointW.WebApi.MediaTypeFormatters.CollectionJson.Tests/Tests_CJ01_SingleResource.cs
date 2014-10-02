@@ -1,5 +1,8 @@
-﻿using FluentAssertions;
+﻿using System.Linq;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json.Linq;
+using PointW.WebApi.ResourceModel;
 using PointW.WebApi.ResourceModel.TestResources;
 
 namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
@@ -35,5 +38,79 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
             // assert
             result.Should().NotBeEmpty();
         }
+
+        
+        
+        [TestMethod]
+        public void formatter_withBasic_isCollection()
+        {
+            // arrange
+            // act
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
+
+            var o = JObject.Parse(result);
+            var collection = o["collection"];
+
+            // assert
+            collection.Should().NotBeNull();
+            o.Count.Should().Be(1);
+        }
+
+
+
+        [TestMethod]
+        public void formatter_withSelfLink_containsLinks()
+        {
+            // arrange
+            _basicResource.Relations.Add("self", new Link { Href = "selfhref"});
+
+            // act
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
+
+            var o = JObject.Parse(result);
+            var links = o["collection"]["links"];
+
+            // assert
+            links.Should().NotBeNull();
+        }
+
+
+
+        [TestMethod]
+        public void formatter_withSelfLink_containsValidCjSelfLink()
+        {
+            // arrange
+            _basicResource.Relations.Add("self", new Link { Href = "selfhref" });
+        
+            // act
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
+        
+            var o = JObject.Parse(result);
+            var links = o["collection"]["links"];
+            var selfLink = links.FirstOrDefault(l => l.Value<string>("rel") == "self");
+            var href = selfLink["href"].ToString();
+        
+            // assert
+            selfLink.Should().NotBeNull();
+            href.Should().Be("selfhref");
+        }
+
+
+
+        [TestMethod]
+        public void formatter_withBasic_hasOneItem()
+        {
+            // arrange
+            // act
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
+        
+            var o = JObject.Parse(result);
+            var items = o["collection"]["items"];
+        
+            // assert
+            items.Should().NotBeNull();
+            items.Count().Should().Be(1);
+        }
+    
     }
 }
