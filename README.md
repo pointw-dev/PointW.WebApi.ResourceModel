@@ -2,7 +2,7 @@
 
 ** PLEASE NOTE: support for HAL is pretty stable, but support for Collection+JSON is still in flight **
 
-The goal of this project is to provide a way to model resources.  The essential considerations are
+The goal of this project is to provide a simple way to model resources.  The essential considerations are
 * what data should a resource provide in its representations
 * how are resources related to each other
 * leave formatting decisions to configuration (as much as possible)
