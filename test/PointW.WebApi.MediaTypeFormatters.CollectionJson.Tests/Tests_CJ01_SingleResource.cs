@@ -101,6 +101,8 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
         public void formatter_withBasic_hasOneItem()
         {
             // arrange
+            _basicResource.Relations.Add("self", new Link { Href = "selfhref" });
+
             // act
             var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
         
@@ -111,6 +113,58 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
             items.Should().NotBeNull();
             items.Count().Should().Be(1);
         }
-    
+
+
+
+        [TestMethod]
+        public void formatter_withBasic_itemsIsArray()
+        {
+            // arrange
+            _basicResource.Relations.Add("self", new Link { Href = "selfhref" });
+
+            // act
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
+
+            var o = JObject.Parse(result);
+            var items = o["collection"]["items"];
+
+            // assert
+            items.Should().BeOfType<JArray>();
+        }
+
+
+
+        [TestMethod]
+        public void formatter_withBasic_itemHasData()
+        {
+            // arrange
+
+            // act
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
+
+            var o = JObject.Parse(result);
+            var item = o["collection"]["items"][0];
+
+            // assert
+            item.ToString().Should().Contain("data");
+        }
+
+
+
+        [TestMethod]
+        public void formatter_withBasic_itemHasNameValuePair()
+        {
+            // arrange
+
+            // act
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
+
+            var o = JObject.Parse(result);
+            var data = o["collection"]["items"][0]["data"];
+
+            // assert
+            data["name"].ToString().Should().Be("name");
+            data["value"].ToString().Should().Be("Pat Smith");
+        }
     }
 }

@@ -50,7 +50,7 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
             {
                 properties = properties.Where((p => false)).ToList();
 
-                var embedded = new JsonProperty
+                var collection = new JsonProperty
                 {
                     DeclaringType = type,
                     PropertyType = typeof(Dictionary<string, object>),
@@ -61,7 +61,8 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
                     // ShouldSerialize = instance => instance.GetType().GetProperties().Any(p => IsInstanceEmbeddable(p, instance))
                 };
 
-                properties.Add(embedded);
+
+                properties.Add(collection);
             }
 
             return properties;
@@ -79,10 +80,22 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
 
         public object GetValue(object target)
         {
-            var props = target.GetType()
-                .GetProperties();
+            var links = target.GetType()
+                .GetProperties().Where(p => p.Name == "Relations");
 
-            var rtn = props.ToDictionary(p => (p.Name == "Relations" ? "links" : p.Name), p => p.GetValue(target));
+            var props = target.GetType()
+                .GetProperties().Where(p => p.Name != "Relations");
+
+            var rtn = links.ToDictionary(p => (p.Name == "Relations" ? "links" : p.Name), p => p.GetValue(target));
+
+            rtn.Add("items", new List<Dictionary<string, object>>
+            {
+                new Dictionary<string, object>
+                {
+                    {"data", props.ToDictionary(p => p.Name, p => p.GetValue(target))}
+                }
+            });
+                //props.ToDictionary(p => p.Name, p => p.GetValue(target)));
 
             return rtn;
         }
