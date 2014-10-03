@@ -7,19 +7,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointW.WebApi.ResourceModel
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointW.WebApi.MediaTypeFormatters.Hal", "PointW.WebApi.MediaTypeFormatters.Hal\PointW.WebApi.MediaTypeFormatters.Hal.csproj", "{81EDF30F-3030-42F3-A28A-96E72DC37CF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointW.WebApi.MediaTypeFormatters.Hal.Tests", "PointW.WebApi.MediaTypeFormatters.Hal.Tests\PointW.WebApi.MediaTypeFormatters.Hal.Tests.csproj", "{40EB3103-87C9-4AC8-B69C-0D5BD34834BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointW.WebApi.MediaTypeFormatters.Hal.Tests", "..\test\PointW.WebApi.MediaTypeFormatters.Hal.Tests\PointW.WebApi.MediaTypeFormatters.Hal.Tests.csproj", "{40EB3103-87C9-4AC8-B69C-0D5BD34834BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointW.WebApi.ResourceModel.TestResources", "PointW.WebApi.ResourceModel.TestResources\PointW.WebApi.ResourceModel.TestResources.csproj", "{EC6979C6-0A13-490A-B1F1-D3E257A7985F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointW.WebApi.ResourceModel.TestResources", "..\test\PointW.WebApi.ResourceModel.TestResources\PointW.WebApi.ResourceModel.TestResources.csproj", "{EC6979C6-0A13-490A-B1F1-D3E257A7985F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{22246621-1061-4380-80DC-D35589625C60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointW.WebApi.ResourceModel.TestControllers", "PointW.WebApi.ResourceModel.TestControllers\PointW.WebApi.ResourceModel.TestControllers.csproj", "{58665566-AD6A-4DA8-A086-2ED00EC25F09}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointW.WebApi.ResourceModel.TestControllers", "..\test\PointW.WebApi.ResourceModel.TestControllers\PointW.WebApi.ResourceModel.TestControllers.csproj", "{58665566-AD6A-4DA8-A086-2ED00EC25F09}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointW.WebApi.MediaTypeFormatters.CollectionJson", "PointW.WebApi.MediaTypeFormatters.CollectionJson\PointW.WebApi.MediaTypeFormatters.CollectionJson.csproj", "{4E57B4A4-4929-429C-8F57-1CADDB312CD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests", "PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests\PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests.csproj", "{97996A5D-83A5-4697-973B-0A840405D2C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests", "..\test\PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests\PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests.csproj", "{97996A5D-83A5-4697-973B-0A840405D2C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointW.WebApi.MediaTypeFormatters.TestHelpers", "PointW.WebApi.MediaTypeFormatters.TestHelpers\PointW.WebApi.MediaTypeFormatters.TestHelpers.csproj", "{1162EB28-743A-4BE4-86D8-81AC2325D5DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointW.WebApi.MediaTypeFormatters.TestHelpers", "..\test\PointW.WebApi.MediaTypeFormatters.TestHelpers\PointW.WebApi.MediaTypeFormatters.TestHelpers.csproj", "{1162EB28-743A-4BE4-86D8-81AC2325D5DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

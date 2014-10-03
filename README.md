@@ -237,5 +237,5 @@ GET `/api/person/1` and see that we have arrived at our goal:
 		"self": {
 		  "href": "http://example.org/api/person/1"
 		}
-	    }
+      }
 	}
