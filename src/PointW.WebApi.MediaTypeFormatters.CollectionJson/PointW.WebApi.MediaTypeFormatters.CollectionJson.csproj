@@ -53,6 +53,7 @@
     <Compile Include="LinksConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceConverter.cs" />
+    <Compile Include="ResourceValueProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

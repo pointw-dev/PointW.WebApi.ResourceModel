@@ -68,37 +68,4 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
             return properties;
         }
     }
-
-
-
-    internal class ResourceValueProvider : IValueProvider
-    {
-        public void SetValue(object target, object value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public object GetValue(object target)
-        {
-            var links = target.GetType()
-                .GetProperties().Where(p => p.Name == "Relations");
-
-            var props = target.GetType()
-                .GetProperties().Where(p => p.Name != "Relations");
-
-            var rtn = links.ToDictionary(p => (p.Name == "Relations" ? "links" : p.Name), p => p.GetValue(target));
-
-            rtn.Add("items", new List<Dictionary<string, object>>
-            {
-                new Dictionary<string, object>
-                {
-                    {"data", props.ToDictionary(p => p.Name, p => p.GetValue(target))}
-                }
-            });
-                //props.ToDictionary(p => p.Name, p => p.GetValue(target)));
-
-            return rtn;
-        }
-    }
-
 }

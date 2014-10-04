@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Runtime.InteropServices;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
@@ -59,45 +60,6 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
 
 
         [TestMethod]
-        public void formatter_withSelfLink_containsLinks()
-        {
-            // arrange
-            _basicResource.Relations.Add("self", new Link { Href = "selfhref"});
-
-            // act
-            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
-
-            var o = JObject.Parse(result);
-            var links = o["collection"]["links"];
-
-            // assert
-            links.Should().NotBeNull();
-        }
-
-
-
-        [TestMethod]
-        public void formatter_withSelfLink_containsValidCjSelfLink()
-        {
-            // arrange
-            _basicResource.Relations.Add("self", new Link { Href = "selfhref" });
-        
-            // act
-            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
-        
-            var o = JObject.Parse(result);
-            var links = o["collection"]["links"];
-            var selfLink = links.FirstOrDefault(l => l.Value<string>("rel") == "self");
-            var href = selfLink["href"].ToString();
-        
-            // assert
-            selfLink.Should().NotBeNull();
-            href.Should().Be("selfhref");
-        }
-
-
-
-        [TestMethod]
         public void formatter_withBasic_hasOneItem()
         {
             // arrange
@@ -105,10 +67,10 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
 
             // act
             var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
-        
+
             var o = JObject.Parse(result);
             var items = o["collection"]["items"];
-        
+
             // assert
             items.Should().NotBeNull();
             items.Count().Should().Be(1);
@@ -120,7 +82,6 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
         public void formatter_withBasic_itemsIsArray()
         {
             // arrange
-            _basicResource.Relations.Add("self", new Link { Href = "selfhref" });
 
             // act
             var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
@@ -152,7 +113,7 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
 
 
         [TestMethod]
-        public void formatter_withBasic_itemHasNameValuePair()
+        public void formatter_withBasic_dataIsArray()
         {
             // arrange
 
@@ -163,8 +124,219 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
             var data = o["collection"]["items"][0]["data"];
 
             // assert
-            data["name"].ToString().Should().Be("name");
-            data["value"].ToString().Should().Be("Pat Smith");
+            data.Should().BeOfType<JArray>();
+        }
+
+
+
+        [TestMethod]
+        public void formatter_withBasic_itemHasNameValuePair()
+        {
+            // arrange
+
+            // act
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
+
+            var o = JObject.Parse(result);
+            var record = o["collection"]["items"][0]["data"][0];
+
+            // assert
+            record["name"].ToString().Should().Be("name");
+            record["value"].ToString().Should().Be("Pat Smith");
+        }
+
+
+
+        [TestMethod]
+        public void formatter_withNoLinks_noHrefNoLinks()
+        {
+            // arrange
+
+            // act
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
+
+            // assert
+            result.Should().NotContain("href");
+            result.Should().NotContain("links");
+        }
+
+
+
+        [TestMethod]
+        public void formatter_withCollectionLink_collectionHrefIsCollectionLinkHref()
+        {
+            // arrange
+            _basicResource.Relations.Add("collection", new Link { Href = "collectionhref" });
+
+            // act
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
+
+            var o = JObject.Parse(result);
+            var href = o["collection"]["href"];
+
+            // assert
+            href.Should().NotBeNull();
+            href.ToString().Should().Be("collectionhref");
+        }
+
+
+
+        [TestMethod]
+        public void formatter_withSelfLink_itemHrefIsSelfLinkHref()
+        {
+            // arrange
+            _basicResource.Relations.Add("self", new Link { Href = "selfhref" });
+
+            // act
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
+
+            var o = JObject.Parse(result);
+            var href = o["collection"]["items"][0]["href"];
+
+            // assert
+            href.Should().NotBeNull();
+            href.ToString().Should().Be("selfhref");
+        }
+
+
+
+        [TestMethod]
+        public void formatter_withSelfAndCollectionLink_hasBoth()
+        {
+            // arrange
+            _basicResource.Relations.Add("self", new Link { Href = "selfhref" });
+            _basicResource.Relations.Add("collection", new Link { Href = "collectionhref" });
+
+
+            // act
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
+
+            var o = JObject.Parse(result);
+
+            var colHref = o["collection"]["href"];
+            var selfHref = o["collection"]["items"][0]["href"];
+
+            // assert
+            colHref.Should().NotBeNull();
+            colHref.ToString().Should().Be("collectionhref");
+            selfHref.Should().NotBeNull();
+            selfHref.ToString().Should().Be("selfhref");
+        }
+
+
+
+
+        [TestMethod]
+        public void formatter_withOtherLinks_itemHasLinks()
+        {
+            // arrange
+            _basicResource.Relations.Add("other", new Link { Href = "otherhref" });
+
+
+            // act
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
+
+            var o = JObject.Parse(result);
+
+            var links = o["collection"]["items"][0]["links"];                
+            var otherHref = links.FirstOrDefault(l => l.Value<string>("rel") == "other")["href"];
+
+
+            // assert
+            otherHref.Should().NotBeNull();
+            otherHref.ToString().Should().Be("otherhref");
+        }
+
+
+
+        [TestMethod]
+        public void formatter_withSelfAndOtherLinks_itemHasHrefAndLinks()
+        {
+            // arrange
+            _basicResource.Relations.Add("self", new Link { Href = "selfhref" });
+            _basicResource.Relations.Add("other", new Link { Href = "otherhref" });
+
+
+            // act
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
+
+            var o = JObject.Parse(result);
+
+            var links = o["collection"]["items"][0]["links"];
+            var otherHref = links.FirstOrDefault(l => l.Value<string>("rel") == "other")["href"];
+            var selfByRel = links.FirstOrDefault(l => l.Value<string>("rel") == "self");
+            var selfHref = o["collection"]["items"][0]["href"].ToString();
+
+
+            // assert
+            selfByRel.Should().BeNull();
+            otherHref.Should().NotBeNull();
+            otherHref.ToString().Should().Be("otherhref");
+            selfHref.Should().Be("selfhref");
+        }
+
+
+
+
+        [TestMethod]
+        public void formatter_withCollectionAndOtherLinks_itemHasLinksColHasHref()
+        {
+            // arrange
+            _basicResource.Relations.Add("collection", new Link { Href = "collectionhref" });
+            _basicResource.Relations.Add("other", new Link { Href = "otherhref" });
+
+
+            // act
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
+
+            var o = JObject.Parse(result);
+
+            var links = o["collection"]["items"][0]["links"];
+            var otherHref = links.FirstOrDefault(l => l.Value<string>("rel") == "other")["href"];
+            var colByRel = links.FirstOrDefault(l => l.Value<string>("rel") == "collection");
+            var colHref = o["collection"]["href"].ToString();
+
+
+            // assert
+            colByRel.Should().BeNull();
+            otherHref.Should().NotBeNull();
+            otherHref.ToString().Should().Be("otherhref");
+            colHref.Should().Be("collectionhref");
+        }
+
+
+
+        [TestMethod]
+        public void formatter_withSelfCollectionAndOtherLinks_itemHasSelfAndLinksColHasHref()
+        {
+            // arrange
+            _basicResource.Relations.Add("collection", new Link { Href = "collectionhref" });
+            _basicResource.Relations.Add("other", new Link { Href = "otherhref" });
+            _basicResource.Relations.Add("self", new Link { Href = "selfhref" });
+
+
+            // act
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
+
+            var o = JObject.Parse(result);
+
+            var links = o["collection"]["items"][0]["links"];
+            var otherHref = links.FirstOrDefault(l => l.Value<string>("rel") == "other")["href"];
+            var colByRel = links.FirstOrDefault(l => l.Value<string>("rel") == "collection");
+            var colHref = o["collection"]["href"].ToString();
+            var selfByRel = links.FirstOrDefault(l => l.Value<string>("rel") == "self");
+            var selfHref = o["collection"]["items"][0]["href"].ToString();
+
+
+
+            // assert
+            colByRel.Should().BeNull();
+            otherHref.Should().NotBeNull();
+            otherHref.ToString().Should().Be("otherhref");
+            colHref.Should().Be("collectionhref");
+            selfByRel.Should().BeNull();
+            selfHref.Should().Be("selfhref");
+
         }
     }
 }
