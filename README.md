@@ -5,9 +5,9 @@
 The goal of this project is to provide a simple way to model resources.  The essential considerations are
 * what data should a resource provide in its representations
 * how are resources related to each other
-* leave formatting decisions to configuration (as much as possible)
+* leave formatting decisions to configuration/content negatiation (as much as possible)
 
-This should be easy to model as simple classes without having to consider what the format of representations actually look like.
+This should be easy to model with simple classes without having to consider what the format of representations actually look like.
 
 (see the <a href=https://github.com/biscuit314/PointW.WebApi.ResourceModel/wiki>wiki</a> for more details.)
 
