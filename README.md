@@ -1,6 +1,6 @@
 # PointW.WebApi.ResourceModel
 
-** PLEASE NOTE: support for HAL is pretty stable, but support for Collection+JSON is still in flight **
+** PLEASE NOTE: support for HAL is stable, but support for Collection+JSON is about 40% complete **
 
 The goal of this project is to provide a simple way to model resources.  The essential considerations are
 * what data should a resource provide in its representations
