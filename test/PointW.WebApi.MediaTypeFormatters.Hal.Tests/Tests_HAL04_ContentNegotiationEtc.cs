@@ -226,5 +226,13 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             // assert
             body.Should().Contain("<Name>alpha</Name>");
         }
+
+
+
+        [TestMethod, Ignore]
+        public void SomeController_PutWwwFormUrlencoded_Serializes()
+        {
+            
+        }
     }
 }

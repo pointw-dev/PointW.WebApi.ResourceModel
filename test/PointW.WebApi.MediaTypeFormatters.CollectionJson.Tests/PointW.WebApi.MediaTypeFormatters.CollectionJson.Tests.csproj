@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Tests_CJ01_SingleResource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test_CJ02_ResourceCollections.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

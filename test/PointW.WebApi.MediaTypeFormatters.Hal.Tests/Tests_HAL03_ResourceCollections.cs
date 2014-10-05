@@ -82,7 +82,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
 
 
         [TestMethod]
-        public void formatter_simpleResourceist_dataInValidJson()
+        public void formatter_simpleResourceist_dataInValidHal()
         {
             // arrange
 
