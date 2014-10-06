@@ -13,7 +13,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
     /// NOTE: when the "action" part of the test name begins with "with...", read it as if
     /// the name was "format a resource with..."
     /// </summary>
-    [TestClass]
+    [TestClass] // ReSharper disable once InconsistentNaming
     public class Tests_HAL01_SingleResource
     {
         private BasicResource _basicResource;

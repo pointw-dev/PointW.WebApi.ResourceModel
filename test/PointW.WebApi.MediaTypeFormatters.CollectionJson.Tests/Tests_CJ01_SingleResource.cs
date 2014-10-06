@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
@@ -8,7 +7,7 @@ using PointW.WebApi.ResourceModel.TestResources;
 
 namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
 {
-    [TestClass]
+    [TestClass] // ReSharper disable once InconsistentNaming
     public class Tests_CJ01_SingleResource
     {
         private BasicResource _basicResource;
@@ -239,7 +238,7 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
             var o = JObject.Parse(result);
 
             var links = o["collection"]["items"][0]["links"];                
-            var otherHref = links.FirstOrDefault(l => l.Value<string>("rel") == "other")["href"];
+            var otherHref = links.First(l => l.Value<string>("rel") == "other")["href"];
 
 
             // assert
@@ -263,7 +262,7 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
             var o = JObject.Parse(result);
 
             var links = o["collection"]["items"][0]["links"];
-            var otherHref = links.FirstOrDefault(l => l.Value<string>("rel") == "other")["href"];
+            var otherHref = links.First(l => l.Value<string>("rel") == "other")["href"];
             var selfByRel = links.FirstOrDefault(l => l.Value<string>("rel") == "self");
             var selfHref = o["collection"]["items"][0]["href"].ToString();
 
@@ -292,7 +291,7 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
             var o = JObject.Parse(result);
 
             var links = o["collection"]["items"][0]["links"];
-            var otherHref = links.FirstOrDefault(l => l.Value<string>("rel") == "other")["href"];
+            var otherHref = links.First(l => l.Value<string>("rel") == "other")["href"];
             var colByRel = links.FirstOrDefault(l => l.Value<string>("rel") == "collection");
             var colHref = o["collection"]["href"].ToString();
 
@@ -321,7 +320,7 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
             var o = JObject.Parse(result);
 
             var links = o["collection"]["items"][0]["links"];
-            var otherHref = links.FirstOrDefault(l => l.Value<string>("rel") == "other")["href"];
+            var otherHref = links.First(l => l.Value<string>("rel") == "other")["href"];
             var colByRel = links.FirstOrDefault(l => l.Value<string>("rel") == "collection");
             var colHref = o["collection"]["href"].ToString();
             var selfByRel = links.FirstOrDefault(l => l.Value<string>("rel") == "self");

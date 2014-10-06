@@ -57,5 +57,24 @@ namespace PointW.WebApi.ResourceModel.TestControllers
 
             return Ok(rtn);
         }
+
+
+
+        [Route("", Name = "Post")]
+        public IHttpActionResult Post([FromBody] ProductResource product)
+        {
+            var newId = _fakeDatabase.Items.Max(i => i.Id) + 1;
+
+            var r = new ResourceWithHiddenId
+            {
+                Id = newId,
+                Name = product.Model
+            };
+
+            _fakeDatabase.Items.Add(r);
+
+            return Created(Url.Link("GetById", new {productId = newId}), r);
+        }
+        
     }
 }

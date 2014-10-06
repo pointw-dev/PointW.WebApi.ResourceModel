@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using FluentAssertions;
 using PointW.WebApi.ResourceModel.TestResources;
 using PointW.WebApi.ResourceModel;
@@ -7,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
 {
-    [TestClass]
+    [TestClass]  // ReSharper disable once InconsistentNaming
     public class Tests_HAL04_RoundTripFormatting
     {
         private HalJsonMediaTypeFormatter _formatter;
@@ -41,7 +40,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
         public void roundTrip_embedded_subResourcesCorrect()
         {
             // arrange
-            var test = new ResourceWithEmbeddedProducts()
+            var test = new ResourceWithEmbeddedProducts
             {
                 Name = "foobar",
                 Car = new ProductResource
@@ -114,7 +113,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
 
             testList.Items.Add(new BasicResource
             {
-                Name = "delta",
+                Name = "gamma",
             });
 
             // act
@@ -146,7 +145,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
         // 
         //     testList.Items.Add(new BasicResource
         //     {
-        //         Name = "delta",
+        //         Name = "gamma",
         //     });
         // 
         //     // act
@@ -183,7 +182,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             
             testList.Items.Add(new BasicResource
             {
-                Name = "delta",
+                Name = "gamma",
             });
             
             // act
@@ -222,21 +221,21 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
 
             testList.Items.Add(new BasicResource
             {
-                Name = "delta",
+                Name = "gamma",
             });
 
             // act
-            var obj = TestHelpers.Format.PerformRoundTrip<SimpleResourceList<BasicResource>>(testList, _formatter);
-            var beta = obj.Items.First(i => i.Name == "beta") as DerivedResource;
+            // var obj = TestHelpers.Format.PerformRoundTrip<SimpleResourceList<BasicResource>>(testList, _formatter);
+            // var beta = obj.Items.First(i => i.Name == "beta") as DerivedResource;
 
             // assert
             Assert.Inconclusive("Is this required functionality?  If not, can ILists enforce homogeneity?");
-            obj.Should().BeOfType<SimpleResourceList<BasicResource>>();
-            obj.Count.Should().Be(3);
-            obj.Items.Count.Should().Be(3);
-            beta.Name.Should().Be("beta");
-            beta.Extra.Should().Be("omega");
-            beta.Should().BeOfType<DerivedResource>();
+            // obj.Should().BeOfType<SimpleResourceList<BasicResource>>();
+            // obj.Count.Should().Be(3);
+            // obj.Items.Count.Should().Be(3);
+            // beta.Name.Should().Be("beta");
+            // beta.Extra.Should().Be("omega");
+            // beta.Should().BeOfType<DerivedResource>();
         }
     }
 }

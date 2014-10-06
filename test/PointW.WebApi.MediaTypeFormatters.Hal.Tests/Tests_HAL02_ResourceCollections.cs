@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 
 namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
 {
-    [TestClass]
+    [TestClass] // ReSharper disable once InconsistentNaming
     public class Tests_HAL02_ResourceCollections
     {
         private HalJsonMediaTypeFormatter _formatter;

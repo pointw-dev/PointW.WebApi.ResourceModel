@@ -8,7 +8,7 @@ using PointW.WebApi.ResourceModel.TestResources;
 
 namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
 {
-    [TestClass]
+    [TestClass] // ReSharper disable once InconsistentNaming
     public class Test_CJ02_ResourceCollections
     {
         private CollectionJsonMediaTypeFormatter _formatter;
@@ -97,9 +97,9 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
 
             var o = JObject.Parse(result);
             var items = o["collection"]["items"];
-            var alpha = o["collection"]["items"][0]["data"][0];
-            var beta = o["collection"]["items"][1]["data"][0];
-            var gamma = o["collection"]["items"][2]["data"][0];
+            var alpha = items[0]["data"][0];
+            var beta = items[1]["data"][0];
+            var gamma = items[2]["data"][0];
 
             // assert
             alpha["name"].ToString().Should().Be("name");
@@ -122,7 +122,7 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
 
             var o = JObject.Parse(result);
             var items = o["collection"]["items"];
-            var alphahref = items[0]["href"].ToString(); // TODO: get by name rather than by position
+            var alphahref = items[0]["href"].ToString();
             var betahref = items[1]["href"].ToString();
             var gammahref = items[2]["href"].ToString();
 
@@ -138,7 +138,7 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
         public void formatter_withOtherLinkOnAlpha_alphaHasLinks()
         {
             // arrange
-            var alpha = _list.Items.FirstOrDefault(i => ((BasicResource) i).Name == "alpha");
+            var alpha = _list.Items.First(i => ((BasicResource) i).Name == "alpha");
             alpha.Relations.Add("other", new Link {Href = "otherhref"});
 
             // act
@@ -146,8 +146,8 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
 
             var o = JObject.Parse(result);
             var items = o["collection"]["items"];
-            var alphaLinks = items[0]["links"]; // TODO: get by name rather than by position
-            var otherLink = alphaLinks.FirstOrDefault(l => l.Value<string>("rel") == "other");
+            var alphaLinks = items[0]["links"];
+            var otherLink = alphaLinks.First(l => l.Value<string>("rel") == "other");
 
             // assert
             alphaLinks.Should().NotBeNull();
@@ -161,14 +161,14 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
         {
             // arrange
             var alpha = _list.Items.FirstOrDefault(i => ((BasicResource)i).Name == "alpha");
-            alpha.Relations.Add("other", new Link { Href = "otherhref" });
+            if (alpha != null) alpha.Relations.Add("other", new Link { Href = "otherhref" });
 
             // act
             var result = TestHelpers.Format.FormatObject(_list, _formatter);
 
             var o = JObject.Parse(result);
             var items = o["collection"]["items"];
-            var alphaLinks = items[0]["links"]; // TODO: get by name rather than by position
+            var alphaLinks = items[0]["links"];
             var alphaSelf = alphaLinks.FirstOrDefault(l => l.Value<string>("rel") == "self");
             // assert
             alphaLinks.Should().NotBeNull();
