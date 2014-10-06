@@ -23,11 +23,11 @@ In other words, you write this...
       "name": "John Doe",
       "address": "123 Main St.",
       "_links": {
-        "car": {
-          "href": "http://example.org/api/car/1"
-        },
         "self": {
           "href": "http://example.org/api/person/1"
+        },
+        "car": {
+          "href": "http://example.org/api/car/1"
         }
       }
     }

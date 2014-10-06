@@ -33,6 +33,23 @@ public class Person : ResourceModel
 </pre>
     <p>...or this (application/vnd.collection+json)...</p>
 <pre>
+{
+  "collection": {
+    "href" : "http://example.org/api/person"
+    "items": [
+      {
+        "data": [
+          { "name": "name", "value": "John Doe" },
+          { "name": "address", "value": "123 Main St." },
+        ],
+        "href": "http://example.org/api/person/1",
+        "links": [
+          { "rel": "car","href": "http://example.org/api/car/1" }
+        ]
+      }
+    ]
+  }
+}
 </pre> 
   
   <p>Please visit <a href="https://github.com/biscuit314/PointW.WebApi.ResourceModel/wiki">the project wiki</a> for more details.</p>
