@@ -337,5 +337,32 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
             selfByRel.Should().BeNull();
             selfHref.Should().Be("selfhref");
         }
+
+
+
+        [TestMethod]
+        public void formatter_withMultiPropertyResource_dataHasProperites()
+        {
+            // arrange
+            var product = new ProductResource
+            {
+                Make = "Ford",
+                Model = "Mustang",
+                SerialNumber = "VIN123456"
+            };
+
+            // act
+            var result = TestHelpers.Format.FormatObject(product, _formatter);
+
+            var o = JObject.Parse(result);
+            var make = o["collection"]["items"][0]["data"][0]["value"].ToString();
+            var model = o["collection"]["items"][0]["data"][1]["value"].ToString();
+            var serial = o["collection"]["items"][0]["data"][2]["value"].ToString();
+
+            // assert
+            make.Should().Be("Ford");
+            model.Should().Be("Mustang");
+            serial.Should().Be("VIN123456");
+        }
     }
 }
