@@ -14,7 +14,7 @@ In other words, you write this...
     {
       public string Name { get; set; }
       public string Address { get; set; }
-      public string PhoneNumber { get; set; }
+      public string Phone { get; set; }
     }  
 
 ...and your clients see this (application/hal+json)...
