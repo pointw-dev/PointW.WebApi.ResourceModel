@@ -82,7 +82,7 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
 
 
 
-        private static LinkCollection ProcessLinks(object target, Dictionary<string, object> rtn, out string selfHref)
+        private static LinkCollection ProcessLinks(object target, IDictionary<string, object> rtn, out string selfHref)
         {
             var links = target.GetType()
                 .GetProperties().FirstOrDefault(p => p.Name == "Relations");

@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Runtime.InteropServices;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;

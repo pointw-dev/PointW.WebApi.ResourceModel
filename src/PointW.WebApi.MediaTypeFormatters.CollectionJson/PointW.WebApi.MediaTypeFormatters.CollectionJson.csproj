@@ -53,12 +53,17 @@
     <Compile Include="LinksConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceConverter.cs" />
+    <Compile Include="ResourceListValueProvider.cs" />
     <Compile Include="ResourceValueProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\test\PointW.WebApi.ResourceModel.TestResources\PointW.WebApi.ResourceModel.TestResources.csproj">
+      <Project>{EC6979C6-0A13-490A-B1F1-D3E257A7985F}</Project>
+      <Name>PointW.WebApi.ResourceModel.TestResources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PointW.WebApi.ResourceModel\PointW.WebApi.ResourceModel.csproj">
       <Project>{E696A2C9-C752-4BC0-AAF9-AE375017C2DF}</Project>
       <Name>PointW.WebApi.ResourceModel</Name>

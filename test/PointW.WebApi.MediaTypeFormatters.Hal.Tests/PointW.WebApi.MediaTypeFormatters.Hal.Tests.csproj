@@ -73,9 +73,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Tests_HAL04_ContentNegotiationEtc.cs" />
-    <Compile Include="Tests_HAL03_ResourceCollections.cs" />
-    <Compile Include="Tests_HAL02_RoundTripFormatting.cs" />
+    <Compile Include="Tests_HAL03_ContentNegotiationEtc.cs" />
+    <Compile Include="Tests_HAL02_ResourceCollections.cs" />
+    <Compile Include="Tests_HAL04_RoundTripFormatting.cs" />
     <Compile Include="Tests_HAL01_SingleResource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
 {
     [TestClass]
-    public class Tests_HAL02_RoundTripFormatting
+    public class Tests_HAL04_RoundTripFormatting
     {
         private HalJsonMediaTypeFormatter _formatter;
 
@@ -95,6 +95,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
         }
 
 
+
         [TestMethod]
         public void roundTrip_simpleList_listReconstituted()
         {
@@ -124,7 +125,38 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             obj.Count.Should().Be(3);
             obj.Items.Count.Should().Be(3);
         }
-        
+
+
+
+        [TestMethod]
+        public void roundTrip_typedList_listReconstituted()
+        {
+            // arrange
+            var testList = new TypedResourceList<BasicResource>(new List<BasicResource>());
+
+            testList.Items.Add(new BasicResource
+            {
+                Name = "alpha",
+            });
+
+            testList.Items.Add(new BasicResource
+            {
+                Name = "beta",
+            });
+
+            testList.Items.Add(new BasicResource
+            {
+                Name = "delta",
+            });
+
+            // act
+            var obj = TestHelpers.Format.PerformRoundTrip<TypedResourceList<BasicResource>>(testList, _formatter);
+
+            // assert
+            obj.Should().BeOfType<TypedResourceList<BasicResource>>();
+            obj.Items.Count.Should().Be(3);
+        }
+
 
 
         /// <summary>

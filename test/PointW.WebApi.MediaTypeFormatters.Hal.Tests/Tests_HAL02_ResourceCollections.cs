@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
 {
     [TestClass]
-    public class Tests_HAL03_ResourceCollections
+    public class Tests_HAL02_ResourceCollections
     {
         private HalJsonMediaTypeFormatter _formatter;
         private SimpleResourceList<BasicResource> _list;
@@ -19,44 +19,30 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
         [TestInitialize]
         public void Setup()
         {
-            _list = new SimpleResourceList<BasicResource>();
-            _list.Relations.Add("self", new Link{ Href = "selfhref"});
-
-            _list.Items.Add(new BasicResource
-                {
-                    Name = "alpha",
-                    Relations = new LinkCollection
-                    {
-                        {
-                            "self", 
-                            new Link { Href = "alphahref" }
-                        }
-                    }
-                });
-
-            _list.Items.Add(new BasicResource
-                {
-                    Name = "beta",
-                    Relations = new LinkCollection
-                    {
-                        {
-                            "self", 
-                            new Link { Href = "betahref" }
-                        }
-                    }
-                });
+            _list = new SimpleResourceList<BasicResource>
+            {
+                Relations = new LinkCollection { { "self", new Link { Href = "selfhref" } } },
+                Items = new List<BasicResource>()
+            };
 
             _list.Items.Add(new BasicResource
             {
-                Name = "delta",
-                Relations = new LinkCollection
-                    {
-                        {
-                            "self", 
-                            new Link { Href = "deltahref" }
-                        }
-                    }
+                Name = "alpha",
+                Relations = new LinkCollection { { "self", new Link { Href = "alphahref" } } }
             });
+
+            _list.Items.Add(new BasicResource
+            {
+                Name = "beta",
+                Relations = new LinkCollection { { "self", new Link { Href = "betahref" } } }
+            });
+
+            _list.Items.Add(new BasicResource
+            {
+                Name = "gamma",
+                Relations = new LinkCollection { { "self", new Link { Href = "gammahref" } } }
+            });
+
 
             _formatter = new HalJsonMediaTypeFormatter();
         }
@@ -76,7 +62,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             result.Should().Contain("_embedded");
             result.Should().Contain("alpha");
             result.Should().Contain("beta");
-            result.Should().Contain("delta");
+            result.Should().Contain("gamma");
         }
 
 

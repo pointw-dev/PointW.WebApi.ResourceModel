@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -50,12 +49,16 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
             {
                 properties = properties.Where((p => false)).ToList();
 
+                var vp = typeof (IResourceList).IsAssignableFrom(type)
+                    ? (IValueProvider) new ResourceListValueProvider()
+                    : new ResourceValueProvider();
+
                 var collection = new JsonProperty
                 {
                     DeclaringType = type,
                     PropertyType = typeof(Dictionary<string, object>),
                     PropertyName = "collection",
-                    ValueProvider = new ResourceValueProvider(),
+                    ValueProvider = vp,
                     Readable = true,
                     Writable = false //,
                     // ShouldSerialize = instance => instance.GetType().GetProperties().Any(p => IsInstanceEmbeddable(p, instance))

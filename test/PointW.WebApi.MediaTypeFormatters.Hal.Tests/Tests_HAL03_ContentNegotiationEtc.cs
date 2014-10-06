@@ -12,7 +12,7 @@ using PointW.WebApi.ResourceModel.TestControllers;
 namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
 {
     [TestClass]
-    public class Tests_HAL04_ContentNegotiationEtc
+    public class Tests_HAL03_ContentNegotiationEtc
     {
         private BasicController _controller;
 
