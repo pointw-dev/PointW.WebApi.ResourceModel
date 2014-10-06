@@ -2,7 +2,9 @@
 
 ** PLEASE NOTE: support for HAL is stable, but support for Collection+JSON is about 60% complete **
 
-The goal of this project is to provide a simple abstraction for modelling resources, decoupled from formatting concerns.  Your Web API application can model resources without having to worry about how those resources become which representations.  Through configuration your application will be able to support multiple media types, mixing and matching as you wish, without impacting the core api logic.  Through content negotiation your clients can pick supported media types they prefer.
+The goal of this project is to provide a simple abstraction for modelling resources, decoupled from formatting concerns.  Your Web API application can model resources and not worry about representations or media types.  
+
+Through configuration your application will be able to support multiple media types, mixing and matching as you wish, without impacting the resource model.  Through content negotiation your clients can pick supported media types they prefer.
 
 <img src="https://github.com/biscuit314/PointW.WebApi.ResourceModel/blob/master/docs/img/overview.png"></img>
 
