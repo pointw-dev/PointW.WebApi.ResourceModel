@@ -1,0 +1,40 @@
+<html>
+<head>
+  <title>PointW.WebApi.ResourceModel</title>
+<head>
+<body>
+  <h2>PointW.WebApi.ResourceModel</h2>
+  <h3>Under construction</h3>
+  <p>The goal of this project is to provide a simple abstraction for modelling resources, decoupled from formatting concerns.  Your Web API application can model resources without having to worry about how those resources become which representations.  Through configuration your application will be able to support multiple media types, mixing and matching as you wish, without impacting the core api logic.  Through content negotiation your clients can pick supported media types they prefer.</p>
+  <img src="img/overview.png"></img>
+  <p>In other words, you write this:</p>
+  <pre>
+public class Person : ResourceModel
+{
+  public string Name { get; set; }
+  public string Address { get; set; }
+  public string PhoneNumber { get; set; }
+}  
+  </pre>
+  <p>...and your clients see this (application/hal+json)...</p>
+<pre>
+{
+  "name": "John Doe",
+  "address": "123 Main St.",
+  "_links": {
+    "car": {
+      "href": "http://example.org/api/car/1"
+    },
+    "self": {
+      "href": "http://example.org/api/person/1"
+    }
+  }
+}
+</pre>
+    <p>...or this (application/vnd.collection+json)...</p>
+<pre>
+</pre> 
+  
+  <p>Please visit <a href="https://github.com/biscuit314/PointW.WebApi.ResourceModel/wiki">the project wiki</a> for more details.</p>
+</body>  
+</html>

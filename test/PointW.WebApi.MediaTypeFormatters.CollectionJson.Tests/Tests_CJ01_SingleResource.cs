@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
@@ -335,7 +336,6 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
             colHref.Should().Be("collectionhref");
             selfByRel.Should().BeNull();
             selfHref.Should().Be("selfhref");
-
         }
     }
 }
