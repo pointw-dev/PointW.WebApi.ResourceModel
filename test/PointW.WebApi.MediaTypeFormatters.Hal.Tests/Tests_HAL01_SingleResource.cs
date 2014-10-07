@@ -601,7 +601,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
         [TestMethod]
         public void formatter_withRelationQualifier_emitsCuries()
         {
-            // act
+            // arrange
             AddOneQualifierToResource();
 
             // act
@@ -616,7 +616,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
         [TestMethod]
         public void formatter_withRelationQualifier_curieIsArray()
         {
-            // act
+            // arrange
             AddOneQualifierToResource();
 
             // act
@@ -629,6 +629,35 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             curies.Should().NotBeNull();
             curies.GetType().Should().Be(typeof (JArray));
         }
+
+
+        [TestMethod]
+        public void formatter_withResourceFromInterface_sameAsInherited()
+        {
+            // arrange
+            var resource = new ResourceFromInterface
+            {
+                Name = "Pat Smith",
+                Address = "123 Main St."
+            };
+            resource.Relations.Add("self", new Link{Href = "selfhref"});
+
+            // act
+            var result = TestHelpers.Format.FormatObject(resource, _formatter);
+
+            var o = JObject.Parse(result);
+            var name = o["name"].ToString();
+            var address = o["address"].ToString();
+            var phone = o["phone"];
+            var selfLink = o["_links"]["self"];
+
+            // assert
+            name.Should().Be("Pat Smith");
+            address.Should().Be("123 Main St.");
+            phone.Should().BeNull();
+            selfLink["href"].ToString().Should().Be("selfhref");
+        }
+
 
 
 

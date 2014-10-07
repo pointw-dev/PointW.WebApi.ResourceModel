@@ -162,6 +162,93 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
 
 
         [TestMethod]
+        public void formatter_withNullStringProperty_propertyIsOmitted()
+        {
+            // arrange
+            var resource = new ProductResource
+            {
+                Make = "Ford"
+            };
+
+            // act
+            var result = TestHelpers.Format.FormatObject(resource, _formatter);
+
+            // assert
+            result.Should().NotContain("model");
+            result.Should().NotContain("serialNumber");
+        }
+
+
+
+
+        [TestMethod]
+        public void formatter_withNeverShowProperty_neverShowPropertyOmitted()
+        {
+            // arrange
+            var resource = new ResourceWithHiddenId
+            {
+                Id = 1234,
+                Name = "Pat Smith"
+            };
+
+            // act
+            var result = TestHelpers.Format.FormatObject(resource, _formatter);
+
+            // assert
+            result.Should().NotContain("internalId");
+            result.Should().NotContain("1234");
+            result.Should().Contain("Pat Smith");
+        }
+
+
+
+        [TestMethod]
+        public void formatter_withAlwaysShowNulls_showNulls()
+        {
+            // arrange
+            var resource = new ResourceWithAlwaysShowProperty
+            {
+                Name = "Pat Smith"
+            };
+            // resource.Name (string) is set and should appear
+            // resource.Number (int?) is not set, but should appear because of [AlwaysShow]
+
+            // act
+            var result = TestHelpers.Format.FormatObject(resource, _formatter);
+
+            // assert
+            result.Should().Contain("Pat Smith");
+            result.Should().Contain("number");
+        }
+
+
+
+        [TestMethod]
+        public void formatter_withIntProperty_valueIsInt()
+        {
+            // arrange
+            var resource = new ResourceWithAlwaysShowProperty
+            {
+                Name = "Pat Smith",
+                Number = 42
+            };
+            // resource.Name (string) is set and should appear
+            // resource.Number (int?) is not set, but should appear because of [AlwaysShow]
+
+            // act
+            var result = TestHelpers.Format.FormatObject(resource, _formatter);
+
+            // assert
+            result.Should().Contain("Pat Smith");
+            result.Should().Contain("number");
+            result.Should().Contain("42");
+            result.Should().NotContain("\"42\"");
+            result.Should().NotContain("'42'");
+        }
+
+
+
+        [TestMethod]
         public void formatter_withCollectionLink_collectionHrefIsCollectionLinkHref()
         {
             // arrange
@@ -363,5 +450,37 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
             model.Should().Be("Mustang");
             serial.Should().Be("VIN123456");
         }
+
+
+        [TestMethod]
+        public void formatter_withResourceFromInterface_sameAsInherited()
+        {
+            // arrange
+            var resource = new ResourceFromInterface
+            {
+                Name = "Pat Smith",
+                Address = "123 Main St."
+            };
+            resource.Relations.Add("self", new Link { Href = "selfhref" });
+
+            // act
+            var result = TestHelpers.Format.FormatObject(resource, _formatter);
+
+            var o = JObject.Parse(result);
+            var item = o["collection"]["items"][0];
+            var data = item["data"];
+
+            var name = data.First(d => d.Value<string>("name") == "name")["value"].ToString();
+            var address = data.First(d => d.Value<string>("name") == "address")["value"].ToString();
+            var phone = data.FirstOrDefault(d => d.Value<string>("name") == "phone");
+            var selfHref = item["href"].ToString();
+
+            // assert
+            name.Should().Be("Pat Smith");
+            address.Should().Be("123 Main St.");
+            phone.Should().BeNull();
+            selfHref.Should().Be("selfhref");
+        }
+
     }
 }

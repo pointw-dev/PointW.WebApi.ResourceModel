@@ -174,6 +174,47 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
             alphaLinks.Should().NotBeNull();
             alphaSelf.Should().BeNull();
         }
+
+
+
+        [TestMethod]
+        public void formatter_withNeverShowProperty_neverShowProperiesOmitted()
+        {
+            // arrange
+            var list = new SimpleResourceList2 // <ResourceWithHiddenId>
+            {
+                Items = new List<Resource>
+                {
+                    new ResourceWithHiddenId
+                    {
+                        Id = 1,
+                        Name = "alpha"
+                    },
+                    new ResourceWithHiddenId
+                    {
+                        Id = 2,
+                        Name = "beta"
+                    },
+                    new ResourceWithHiddenId
+                    {
+                        Id = 3,
+                        Name = "gamma"
+                    }
+                }
+            };
+
+            // act
+            var result = TestHelpers.Format.FormatObject(list, _formatter);
+
+            // assert
+            result.Should().NotContain("Id");
+            result.Should().NotContain("1");
+            result.Should().NotContain("2");
+            result.Should().NotContain("3");
+            result.Should().Contain("alpha");
+            result.Should().Contain("beta");
+            result.Should().Contain("gamma");
+        }
     
         // TODO: what about collection link in data? s/b omitted too?  s/b first checked if == collection.href??
     }

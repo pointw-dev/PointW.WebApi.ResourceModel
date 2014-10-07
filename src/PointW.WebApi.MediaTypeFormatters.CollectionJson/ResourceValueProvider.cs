@@ -65,7 +65,7 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
         private static Dictionary<string, object> CollectData(object target)
         {
             var props = target.GetType()
-                .GetProperties().Where(p => p.Name != "Relations");
+                .GetProperties().Where(p => p.Name != "Relations" && !p.GetCustomAttributes(typeof(NeverShowAttribute), true).Any());
 
             var item = new Dictionary<string, object>
             {
@@ -73,8 +73,8 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
                     "data", props.Select(p => new
                     {
                         name = Utilities.ToCamelCase(p.Name),
-                        value = p.GetValue(target)
-                    }).ToList()
+                        value = p.GetValue(target) ?? (p.GetCustomAttributes(typeof(AlwaysShowAttribute), true).Any() ? null : "~~skip~~")
+                    }).ToList().Where(p => p.value as string != "~~skip~~") // TODO: this smells - improve!
                 }
             };
             return item;
