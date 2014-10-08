@@ -23,7 +23,7 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
             _list = new SimpleResourceList2
             {
                 Relations = new LinkCollection { { "self", new Link { Href = "selfhref" } } }, 
-                Items = new List<Resource>()
+                Items = new List<IResource>()
             };
 
             // _list = new SimpleResourceList<BasicResource>
@@ -183,7 +183,7 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
             // arrange
             var list = new SimpleResourceList2 // <ResourceWithHiddenId>
             {
-                Items = new List<Resource>
+                Items = new List<IResource>
                 {
                     new ResourceWithHiddenId
                     {

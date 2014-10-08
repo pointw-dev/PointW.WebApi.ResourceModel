@@ -49,7 +49,7 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
             {
                 properties = properties.Where((p => false)).ToList();
 
-                var vp = typeof (IResourceList).IsAssignableFrom(type)
+                var vp = typeof(IResourceList).IsAssignableFrom(type) // (type.GetInterface("IResourceList`1") != null)
                     ? (IValueProvider) new ResourceListValueProvider()
                     : new ResourceValueProvider();
 

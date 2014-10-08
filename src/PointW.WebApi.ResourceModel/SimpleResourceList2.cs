@@ -2,9 +2,15 @@
 
 namespace PointW.WebApi.ResourceModel
 {
+    // public class SimpleResourceList2<TResource> : IResourceList<TResource> where TResource : IResource
+    // {
+    //     public ICollection<TResource> Items { get; set; }
+    //     public LinkCollection Relations { get; set; }
+    // }
+
     public class SimpleResourceList2 : IResourceList
     {
-        public IList<Resource> Items { get; set; }
+        public ICollection<IResource> Items { get; set; }
         public LinkCollection Relations { get; set; }
     }
 }

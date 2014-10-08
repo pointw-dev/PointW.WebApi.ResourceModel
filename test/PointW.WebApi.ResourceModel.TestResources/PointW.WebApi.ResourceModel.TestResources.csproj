@@ -41,7 +41,6 @@
   <ItemGroup>
     <Compile Include="BasicResource.cs" />
     <Compile Include="ResourceFromInterface.cs" />
-    <Compile Include="TypedResourceList.cs" />
     <Compile Include="DerivedResource.cs" />
     <Compile Include="ProductResource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

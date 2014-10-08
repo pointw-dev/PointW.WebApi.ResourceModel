@@ -2,8 +2,13 @@
 
 namespace PointW.WebApi.ResourceModel
 {
+    // public interface IResourceList<TResource> : IResource where TResource : IResource
+    // {
+    //     ICollection<TResource> Items { get; set; }
+    // }
+
     public interface IResourceList : IResource
     {
-        IList<Resource> Items { get; set; }
+        ICollection<IResource> Items { get; set; } 
     }
 }
