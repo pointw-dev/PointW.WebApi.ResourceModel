@@ -38,6 +38,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
         public void formatter_withBasic_isPopulated()
         {
             // arrange
+
             // act
             var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
 
@@ -58,6 +59,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
         public void formatter_withBasic_containsLinks()
         {
             // arrange
+
             // act
             var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
 
@@ -726,7 +728,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
         
         private void AddOneQualifierToResource()
         {
-            _basicResource.Relations.AddQualifier("pointw", "http://api.PointW.WebApi.com/relations/{rel}");
+            _basicResource.Relations.AddQualifier("pointw", "http://example.org/relations/{rel}");
             _basicResource.Relations.Add("pointw:somerel", new Link { Href = "somelinkref" });
         }
     }

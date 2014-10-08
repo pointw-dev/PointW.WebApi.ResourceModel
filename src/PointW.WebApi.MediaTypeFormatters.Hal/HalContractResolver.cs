@@ -14,7 +14,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             var property = base.CreateProperty(member, memberSerialization);
-            // member.DeclaringType.Name == "Resource"
+
             if (member.DeclaringType != null && (typeof(IResource).IsAssignableFrom(member.DeclaringType) && property.PropertyName.Equals("relations", StringComparison.OrdinalIgnoreCase)))
             {
                 property.PropertyName = "_links";

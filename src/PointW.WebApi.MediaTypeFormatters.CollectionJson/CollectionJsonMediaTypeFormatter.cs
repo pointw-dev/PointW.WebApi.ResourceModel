@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Formatting;
+﻿using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
@@ -18,7 +13,7 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
         {
             SupportedMediaTypes.Clear(); // because we're inheriting from JsonMediaTypeFormatter, the default "application/json" is now gone
             SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/vnd.collection+json")); // adding this first makes it default
-            // SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/json")); // adding this second lets us respond with HAL to requests for just json
+            // SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/json")); // adding this second lets us respond with Cj to requests for just json
             SerializerSettings.Converters.Add(_resourceConverter);
             SerializerSettings.Converters.Add(_linksConverter);
             SerializerSettings.NullValueHandling = NullValueHandling.Ignore;

@@ -32,6 +32,7 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
         public void formatter_withBasic_isPopulated()
         {
             // arrange
+
             // act
             var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
 
@@ -45,6 +46,7 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
         public void formatter_withBasic_isCollection()
         {
             // arrange
+
             // act
             var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
 

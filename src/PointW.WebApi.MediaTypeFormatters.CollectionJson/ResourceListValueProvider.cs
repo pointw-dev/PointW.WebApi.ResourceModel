@@ -18,7 +18,7 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
             var rtn = new Dictionary<string, object>();
 
             string selfHref;
-            var linkCollection = ProcessLinks(target, rtn, out selfHref);
+            var linkCollection = ProcessLinks(target, rtn, out selfHref); // TODO: fix (result of a bunch of hasty rearranging)
 
             if (!string.IsNullOrEmpty(selfHref))
             {
@@ -66,7 +66,7 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
 
         private static List<object> GetItems(object target)
         {
-            var items = target.GetType().GetProperty("Items").GetValue(target) as ICollection<IResource>; // ouch!
+            var items = target.GetType().GetProperty("Items").GetValue(target) as ICollection<IResource>; // TODO: this smells - improve
 
             return items == null ? null : items.Select(CollectData).Cast<object>().ToList();
         }
@@ -76,25 +76,13 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
         {
             var item = new Dictionary<string, object>();
 
-            var selfHref = "";
+            string selfHref;
             var lc = ProcessLinks(target, item, out selfHref);
 
             if (!string.IsNullOrEmpty(selfHref))
             {
                 item.Add("href", selfHref);
             }
-
-
-            // var props = target.GetType()
-            //     .GetProperties().Where(p => p.Name != "Relations");
-            // 
-            // 
-            // item.Add("data", props.Select(p => new
-            //     {
-            //         name = Utilities.ToCamelCase(p.Name),
-            //         value = p.GetValue(target)
-            //     }).ToList()
-            // );
 
             // TODO: refactor with dupe logic in ResourceValueProvider
             var props = target.GetType()
@@ -115,10 +103,5 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
 
             return item;
         }
-
-
-
-
-
     }
 }

@@ -6,9 +6,4 @@ namespace PointW.WebApi.ResourceModel
     {
         ICollection<TResource> Items { get; set; }
     }
-
-    // public interface IResourceList : IResource
-    // {
-    //     ICollection<IResource> Items { get; set; } 
-    // }
 }

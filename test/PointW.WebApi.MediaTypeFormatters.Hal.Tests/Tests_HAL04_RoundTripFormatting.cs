@@ -127,37 +127,6 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
 
 
 
-        // [TestMethod]
-        // public void roundTrip_typedList_listReconstituted()
-        // {
-        //     // arrange
-        //     var testList = new TypedResourceList<BasicResource>(new List<BasicResource>());
-        // 
-        //     testList.Items.Add(new BasicResource
-        //     {
-        //         Name = "alpha",
-        //     });
-        // 
-        //     testList.Items.Add(new BasicResource
-        //     {
-        //         Name = "beta",
-        //     });
-        // 
-        //     testList.Items.Add(new BasicResource
-        //     {
-        //         Name = "gamma",
-        //     });
-        // 
-        //     // act
-        //     var obj = TestHelpers.Format.PerformRoundTrip<TypedResourceList<BasicResource>>(testList, _formatter);
-        // 
-        //     // assert
-        //     obj.Should().BeOfType<TypedResourceList<BasicResource>>();
-        //     obj.Items.Count.Should().Be(3);
-        // }
-
-
-
         /// <summary>
         /// If a derived object is added to a generic superclass resource list, it will
         /// serialize as the derived object, but will deserialize as the superclass, losing

@@ -209,6 +209,6 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
             result.Should().Contain("gamma");
         }
     
-        // TODO: what about collection link in data? s/b omitted too?  s/b first checked if == collection.href??
+        // TODO: what about rel==collection link in data? s/b omitted too?  s/b first checked if its href == the collection's self.href??
     }
 }

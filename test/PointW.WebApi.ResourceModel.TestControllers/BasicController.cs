@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http;
 using PointW.WebApi.ResourceModel.TestResources;
 
@@ -13,7 +8,7 @@ namespace PointW.WebApi.ResourceModel.TestControllers
     [RoutePrefix("api/basic")]
     public class BasicController : ApiController
     {
-        private SimpleResourceList<ResourceWithHiddenId> _fakeDatabase;
+        private readonly SimpleResourceList<ResourceWithHiddenId> _fakeDatabase;
 
         public BasicController()
         {

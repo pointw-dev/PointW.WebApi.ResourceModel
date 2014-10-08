@@ -22,7 +22,6 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             _list = new SimpleResourceList
             {
                 Relations = new LinkCollection { { "self", new Link { Href = "selfhref" } } },
-                // Items = new List<BasicResource>()
                 Items = new List<IResource>()
             };
 

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using PointW.WebApi.ResourceModel;
 using Newtonsoft.Json;
 
@@ -49,9 +47,6 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
 
         private static void WriteLink(JsonWriter writer, Link link)
         {
-
-            // writer.WriteStartObject();
-
             WritePropertyIfNotNull(writer, link.Name, "name");
 
             writer.WritePropertyName("href");
@@ -61,19 +56,12 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
             {
                 // TODO: not supported by Collection+JSON, either find a way to pop'l the template or skip it, I guess
                 // or maybe form the template: object!!!!??
-                
-                // writer.WritePropertyName("templated");
-                // writer.WriteValue(true);
             }
 
             if (link.IsDeprecated)
             {
                 // TODO: not supported by Collection+JSON, maybe some way to reflect it, else ignore deprecation
-                // writer.WritePropertyName("deprecation");
-                // writer.WriteValue(true);
             }
-
-            // writer.WriteEndObject();
         }
 
 
@@ -88,16 +76,16 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
 
 
 
-        private static void WriteCuries(JsonWriter writer, IEnumerable<Link> curies)
-        {
-            writer.WritePropertyName("curies");
-            writer.WriteStartArray();
-            foreach (var curie in curies)
-            {
-                WriteLink(writer, curie);
-            }
-            writer.WriteEndArray();
-        }
+        // private static void WriteCuries(JsonWriter writer, IEnumerable<Link> curies)
+        // {
+        //     writer.WritePropertyName("curies");
+        //     writer.WriteStartArray();
+        //     foreach (var curie in curies)
+        //     {
+        //         WriteLink(writer, curie);
+        //     }
+        //     writer.WriteEndArray();
+        // }
 
 
 

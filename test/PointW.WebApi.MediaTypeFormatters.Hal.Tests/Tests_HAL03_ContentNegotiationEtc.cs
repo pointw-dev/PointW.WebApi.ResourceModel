@@ -265,8 +265,5 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             // assert
             statusCode.Should().Be(201);
         }
-
-
-
     }
 }

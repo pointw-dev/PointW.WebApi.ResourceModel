@@ -15,7 +15,6 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
             var property = base.CreateProperty(member, memberSerialization);
 
             // TODO: this came over from HAL, but doesn't work - overwritten by resourcevalueprovider.  RECTIFY!
-            // member.DeclaringType.Name == "Resource"
             if (member.DeclaringType != null && (typeof(IResource).IsAssignableFrom(member.DeclaringType) && property.PropertyName.Equals("relations", StringComparison.OrdinalIgnoreCase)))
             {
                 property.PropertyName = "links";
@@ -49,7 +48,6 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
             {
                 properties = properties.Where((p => false)).ToList();
 
-                // var vp = typeof(IResourceList).IsAssignableFrom(type) // (type.GetInterface("IResourceList`1") != null)
                 var vp = (type.GetInterface("IResourceList`1") != null)
                     ? (IValueProvider)new ResourceListValueProvider()
                     : new ResourceValueProvider();
@@ -61,8 +59,7 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
                     PropertyName = "collection",
                     ValueProvider = vp,
                     Readable = true,
-                    Writable = false //,
-                    // ShouldSerialize = instance => instance.GetType().GetProperties().Any(p => IsInstanceEmbeddable(p, instance))
+                    Writable = false
                 };
 
 
