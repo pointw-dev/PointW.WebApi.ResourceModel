@@ -93,12 +93,10 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal
 
 
 
-        protected static bool IsTypeEmbeddable(Type type)
+        private static bool IsTypeEmbeddable(Type type)
         {
-            // var typeOfList = property.PropertyType.GenericTypeArguments[0];
-
             var isResource = typeof (IResource).IsAssignableFrom(type);
-            var isCollection = typeof (ICollection<IResource>).IsAssignableFrom(type) || 
+            var isCollection = type.Name == "ICollection`1" && typeof (IResource).IsAssignableFrom(type.GetGenericArguments()[0]) ||
                 (typeof (ICollection).IsAssignableFrom(type) && !typeof(LinkCollection).IsAssignableFrom(type));
 
             return isResource || isCollection;

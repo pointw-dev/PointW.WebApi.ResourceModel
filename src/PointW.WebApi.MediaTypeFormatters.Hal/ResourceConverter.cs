@@ -94,11 +94,8 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal
         private static IEnumerable<PropertyInfo> GetEmbeddableProperties(object resource)
         {
             return resource.GetType()
-                    .GetProperties()
-                    .Where(
-                        p =>
-                            typeof(IResource).IsAssignableFrom(p.PropertyType) ||
-                            (typeof(IList).IsAssignableFrom(p.PropertyType)));
+                .GetProperties()
+                .Where(p => IsTypeEmbeddable(p.PropertyType));
         }
 
 
@@ -149,5 +146,16 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal
                 }
             }
         }
+
+
+        private static bool IsTypeEmbeddable(Type type) // TODO: refactor, copied from HalContractResolver
+        {
+            var isResource = typeof(IResource).IsAssignableFrom(type);
+            var isCollection = type.Name == "ICollection`1" && typeof(IResource).IsAssignableFrom(type.GetGenericArguments()[0]) ||
+                (typeof(ICollection).IsAssignableFrom(type) && !typeof(LinkCollection).IsAssignableFrom(type));
+
+            return isResource || isCollection;
+        }
+
     }
 }

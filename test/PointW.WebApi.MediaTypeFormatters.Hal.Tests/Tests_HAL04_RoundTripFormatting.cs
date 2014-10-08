@@ -99,7 +99,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
         public void roundTrip_simpleList_listReconstituted()
         {
             // arrange
-            var testList = new SimpleResourceList<BasicResource>();
+            var testList = new SimpleResourceList();
 
             testList.Items.Add(new BasicResource
             {
@@ -167,7 +167,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
         public void roundTrip_heteroListAsUniform_listReconstituted()
         {
             // arrange
-            var testList = new SimpleResourceList<BasicResource>();
+            var testList = new SimpleResourceList();
             
             testList.Items.Add(new BasicResource
             {
@@ -198,44 +198,6 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             alpha.Should().BeOfType<BasicResource>();
             beta.Name.Should().Be("beta");
             beta.Should().BeOfType<BasicResource>(); // which means Extra is gone
-        }
-
-        
-        
-        [TestMethod]
-        public void roundTrip_heteroListAsHetero_listReconstituted()
-        {
-            // arrange
-            var testList = new SimpleResourceList<BasicResource>();
-
-            testList.Items.Add(new BasicResource
-            {
-                Name = "alpha",
-            });
-
-            testList.Items.Add(new DerivedResource
-            {
-                Name = "beta",
-                Extra = "omega"
-            });
-
-            testList.Items.Add(new BasicResource
-            {
-                Name = "gamma",
-            });
-
-            // act
-            // var obj = TestHelpers.Format.PerformRoundTrip<SimpleResourceList<BasicResource>>(testList, _formatter);
-            // var beta = obj.Items.First(i => i.Name == "beta") as DerivedResource;
-
-            // assert
-            Assert.Inconclusive("Is this required functionality?  If not, can ILists enforce homogeneity?");
-            // obj.Should().BeOfType<SimpleResourceList<BasicResource>>();
-            // obj.Count.Should().Be(3);
-            // obj.Items.Count.Should().Be(3);
-            // beta.Name.Should().Be("beta");
-            // beta.Extra.Should().Be("omega");
-            // beta.Should().BeOfType<DerivedResource>();
         }
     }
 }

@@ -12,25 +12,18 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
     public class Test_CJ02_ResourceCollections
     {
         private CollectionJsonMediaTypeFormatter _formatter;
-        // private SimpleResourceList<BasicResource> _list;
-        private SimpleResourceList2 _list;
+        private SimpleResourceList _list;
 
 
 
         [TestInitialize]
         public void Setup()
         {
-            _list = new SimpleResourceList2
+            _list = new SimpleResourceList
             {
                 Relations = new LinkCollection { { "self", new Link { Href = "selfhref" } } }, 
                 Items = new List<IResource>()
             };
-
-            // _list = new SimpleResourceList<BasicResource>
-            // {
-            //     Relations = new LinkCollection { { "self", new Link { Href = "selfhref" } } },
-            //     Items = new List<BasicResource>()
-            // };
 
             _list.Items.Add(new BasicResource
             {
@@ -181,7 +174,7 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
         public void formatter_withNeverShowProperty_neverShowProperiesOmitted()
         {
             // arrange
-            var list = new SimpleResourceList2 // <ResourceWithHiddenId>
+            var list = new SimpleResourceList
             {
                 Items = new List<IResource>
                 {

@@ -49,8 +49,9 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
             {
                 properties = properties.Where((p => false)).ToList();
 
-                var vp = typeof(IResourceList).IsAssignableFrom(type) // (type.GetInterface("IResourceList`1") != null)
-                    ? (IValueProvider) new ResourceListValueProvider()
+                // var vp = typeof(IResourceList).IsAssignableFrom(type) // (type.GetInterface("IResourceList`1") != null)
+                var vp = (type.GetInterface("IResourceList`1") != null)
+                    ? (IValueProvider)new ResourceListValueProvider()
                     : new ResourceValueProvider();
 
                 var collection = new JsonProperty

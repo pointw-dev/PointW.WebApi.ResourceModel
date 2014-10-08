@@ -12,16 +12,14 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
     public class Tests_HAL02_ResourceCollections
     {
         private HalJsonMediaTypeFormatter _formatter;
-        // private SimpleResourceList<BasicResource> _list;
-        private SimpleResourceList2 _list;
+        private SimpleResourceList _list;
 
 
 
         [TestInitialize]
         public void Setup()
         {
-            // _list = new SimpleResourceList<BasicResource>
-            _list = new SimpleResourceList2
+            _list = new SimpleResourceList
             {
                 Relations = new LinkCollection { { "self", new Link { Href = "selfhref" } } },
                 // Items = new List<BasicResource>()

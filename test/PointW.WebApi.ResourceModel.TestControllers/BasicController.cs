@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security.Policy;
 using System.Text;
@@ -31,10 +32,6 @@ namespace PointW.WebApi.ResourceModel.TestControllers
         public IHttpActionResult GetAllProducts()
         {
             _fakeDatabase.Relations.Add("self", new Link { Href = Url.Link("GetAll", null) });
-
-            // var href = Url.Link("GetById", new { productId = "{productId}" });
-            // var href = Url.Link("GetById", new Dictionary<string, object> {{"productId", "{productId}"}});
-            // _fakeDatabase.Relations.Add("product", new Link { Href = href} );
 
             return Ok(_fakeDatabase);
         }
@@ -74,7 +71,6 @@ namespace PointW.WebApi.ResourceModel.TestControllers
             _fakeDatabase.Items.Add(r);
 
             return Created(Url.Link("GetById", new {productId = newId}), r);
-        }
-        
+        }        
     }
 }

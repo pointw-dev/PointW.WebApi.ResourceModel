@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Serialization;
 using PointW.WebApi.ResourceModel;
-using PointW.WebApi.ResourceModel.TestResources;
 
 namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
 {
@@ -26,7 +25,7 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
                 rtn.Add("href", selfHref);
             }
 
-            var items = GetItems(target, selfHref, linkCollection);
+            var items = GetItems(target);
             rtn.Add("items", items);
 
             return rtn;
@@ -65,13 +64,11 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
 
 
 
-        private static List<object> GetItems(object target, string selfHref, LinkCollection linkCollection)
+        private static List<object> GetItems(object target)
         {
-            var list = target as IResourceList;
+            var items = target.GetType().GetProperty("Items").GetValue(target) as ICollection<IResource>; // ouch!
 
-            // ASSERT: list != null
-
-            return list.Items.Select(CollectData).Cast<object>().ToList();
+            return items == null ? null : items.Select(CollectData).Cast<object>().ToList();
         }
 
 
