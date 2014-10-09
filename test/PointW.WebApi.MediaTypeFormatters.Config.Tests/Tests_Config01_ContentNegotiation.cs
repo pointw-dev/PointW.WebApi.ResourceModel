@@ -362,6 +362,9 @@ namespace PointW.WebApi.MediaTypeFormatters.Config.Tests
             _config.Formatters.Clear();
             _config.Formatters.Add(new HalJsonMediaTypeFormatter());
 
+            _client.DefaultRequestHeaders.Accept.Clear();
+            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
             // act
             var response = _client.GetAsync(FakeBaseAddress + "/api/basic/1").Result;
             var body = response.Content.ReadAsStringAsync().Result;
@@ -378,6 +381,9 @@ namespace PointW.WebApi.MediaTypeFormatters.Config.Tests
             // arrange
             _config.Formatters.Clear();
             _config.Formatters.Add(new HalJsonMediaTypeFormatter());
+
+            _client.DefaultRequestHeaders.Accept.Clear();
+            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             // act
             var response = _client.GetAsync(FakeBaseAddress + "/api/basic/1").Result;
@@ -749,6 +755,5 @@ namespace PointW.WebApi.MediaTypeFormatters.Config.Tests
             // assert
             body.Should().Contain("<Name>alpha</Name>");
         }
-
     }
 }

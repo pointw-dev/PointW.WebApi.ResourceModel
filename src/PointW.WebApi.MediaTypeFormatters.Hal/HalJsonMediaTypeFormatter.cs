@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net.Http.Formatting;
+﻿using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 
