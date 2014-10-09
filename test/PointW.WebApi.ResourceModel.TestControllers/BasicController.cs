@@ -34,9 +34,9 @@ namespace PointW.WebApi.ResourceModel.TestControllers
 
 
         [Route("{productId:int}", Name = "GetById")]
-        public IHttpActionResult GetProduct(int id)
+        public IHttpActionResult GetProduct(int productId)
         {
-            var rtn = _fakeDatabase.Items.FirstOrDefault(i => i.Id == id);
+            var rtn = _fakeDatabase.Items.FirstOrDefault(i => i.Id == productId);
 
 
             if (rtn == null)
@@ -44,7 +44,7 @@ namespace PointW.WebApi.ResourceModel.TestControllers
                 return NotFound();
             }
 
-            var href = Url.Link("GetById", new { productId = id });
+            var href = Url.Link("GetById", new { productId = productId });
             rtn.Relations.Add("self", new Link { Href = href });
 
             return Ok(rtn);

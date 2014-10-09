@@ -2,6 +2,8 @@
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Text;
+using System.Threading;
+using System.Web.Http;
 
 namespace PointW.WebApi.MediaTypeFormatters.TestHelpers
 {
@@ -30,6 +32,15 @@ namespace PointW.WebApi.MediaTypeFormatters.TestHelpers
 
             return formatter.ReadFromStreamAsync(typeof(TResource), stream, content, null).Result as TResource;
         }
+
+
+
+        public static HttpResponseMessage GetResponseFromAction(IHttpActionResult action)
+        {
+            var ct = new CancellationToken();
+            return action.ExecuteAsync(ct).Result;
+        }
+
 
 
 
