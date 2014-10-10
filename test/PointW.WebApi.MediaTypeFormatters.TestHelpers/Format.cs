@@ -1,9 +1,11 @@
 ﻿using System.IO;
 using System.Net.Http;
 using System.Net.Http.Formatting;
+using System.Resources;
 using System.Text;
 using System.Threading;
 using System.Web.Http;
+using PointW.WebApi.ResourceModel;
 
 namespace PointW.WebApi.MediaTypeFormatters.TestHelpers
 {
@@ -40,7 +42,6 @@ namespace PointW.WebApi.MediaTypeFormatters.TestHelpers
             var ct = new CancellationToken();
             return action.ExecuteAsync(ct).Result;
         }
-
 
 
 

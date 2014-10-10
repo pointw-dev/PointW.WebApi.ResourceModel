@@ -58,6 +58,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\PointW.WebApi.ResourceModel\PointW.WebApi.ResourceModel.csproj">
+      <Project>{E696A2C9-C752-4BC0-AAF9-AE375017C2DF}</Project>
+      <Name>PointW.WebApi.ResourceModel</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

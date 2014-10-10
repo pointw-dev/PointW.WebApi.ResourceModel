@@ -604,7 +604,8 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
         public void formatter_withRelationQualifier_emitsCuries()
         {
             // arrange
-            AddOneQualifierToResource();
+            _basicResource.Relations.AddQualifier("eg", "http://example.org/relations/{rel}");
+            _basicResource.Relations.Add("eg:somerel", new Link { Href = "somelinkref" });
 
             // act
             var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
@@ -619,7 +620,8 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
         public void formatter_withRelationQualifier_curieIsArray()
         {
             // arrange
-            AddOneQualifierToResource();
+            _basicResource.Relations.AddQualifier("eg", "http://example.org/relations/{rel}");
+            _basicResource.Relations.Add("eg:somerel", new Link { Href = "somelinkref" });
 
             // act
             var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
@@ -667,7 +669,8 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
         public void formatter_withRelationQualifer_curieIsHalValid()
         {
             // arrange
-            AddOneQualifierToResource();
+            _basicResource.Relations.AddQualifier("eg", "http://example.org/relations/{rel}");
+            _basicResource.Relations.Add("eg:somerel", new Link { Href = "somelinkref" });
 
             // act
             var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
@@ -677,7 +680,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
 
             // assert
             curies.Count().Should().Be(1);
-            curies[0]["name"].ToString().Should().Be("pointw");
+            curies[0]["name"].ToString().Should().Be("eg");
         }
 
 
@@ -722,14 +725,6 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             //     }
             // }
 
-        }
-
-        
-        
-        private void AddOneQualifierToResource()
-        {
-            _basicResource.Relations.AddQualifier("pointw", "http://example.org/relations/{rel}");
-            _basicResource.Relations.Add("pointw:somerel", new Link { Href = "somelinkref" });
         }
     }
 }

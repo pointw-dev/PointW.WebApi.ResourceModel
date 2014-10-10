@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PointW.WebApi.ResourceModel;
 using PointW.WebApi.ResourceModel.TestResources;
@@ -484,5 +485,128 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson.Tests
             selfHref.Should().Be("selfhref");
         }
 
+
+
+        [TestMethod]
+        public void formatter_withTemplatedRelationQualifier_linkRelExpanded()
+        {
+            // arrange
+            _basicResource.Relations.AddQualifier("eg", "http://example.org/relations/{rel}");
+            _basicResource.Relations.Add("eg:somerel", new Link { Href = "somelinkref" });
+
+            // act
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
+
+            var o = JObject.Parse(result);
+            var item = o["collection"]["items"][0];
+            var links = item["links"];
+            var rel = links[0]["rel"].ToString();
+
+            // assert
+            rel.Should().Be("http://example.org/relations/somerel");
+        }
+
+
+        [TestMethod]
+        public void formatter_withNonTemplatedRelationQualifier_linkRelExpanded()
+        {
+            // arrange
+            _basicResource.Relations.AddQualifier("eg", "http://example.org/relations#");
+            _basicResource.Relations.Add("eg:somerel", new Link { Href = "somelinkref" });
+
+            // act
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
+
+            var o = JObject.Parse(result);
+            var item = o["collection"]["items"][0];
+            var links = item["links"];
+            var rel = links[0]["rel"].ToString();
+
+            // assert
+            rel.Should().Be("http://example.org/relations#somerel");
+        }
+
+
+
+        [TestMethod]
+        public void formatter_withNoRelationQualifier_relUnchanged()
+        {
+            // arrange
+            _basicResource.Relations.Add("somerel", new Link { Href = "somelinkref" });
+
+            // act
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
+
+            var o = JObject.Parse(result);
+            var item = o["collection"]["items"][0];
+            var links = item["links"];
+            var rel = links[0]["rel"].ToString();
+
+            // assert
+            rel.Should().Be("somerel");
+        }
+
+
+
+        [TestMethod]
+        public void formatter_withRelationQualifierAndRelNoSuffix_relIsQualifierOnly()
+        {
+            // arrange
+            _basicResource.Relations.AddQualifier("eg", "http://example.org/relations");
+            _basicResource.Relations.Add("eg:", new Link { Href = "somelinkref" });
+
+            // act
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
+
+            var o = JObject.Parse(result);
+            var item = o["collection"]["items"][0];
+            var links = item["links"];
+            var rel = links[0]["rel"].ToString();
+
+            // assert
+            rel.Should().Be("http://example.org/relations");
+        }
+
+
+
+        [TestMethod]
+        public void formatter_withTemplatedRelationQualifierAndRelNoSuffix_qualUntemplated()
+        {
+            // arrange
+            _basicResource.Relations.AddQualifier("eg", "http://example.org/relations/{rel}");
+            _basicResource.Relations.Add("eg:", new Link { Href = "somelinkref" });
+
+            // act
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
+
+            var o = JObject.Parse(result);
+            var item = o["collection"]["items"][0];
+            var links = item["links"];
+            var rel = links[0]["rel"].ToString();
+
+            // assert
+            rel.Should().Be("http://example.org/relations/");
+        }
+
+
+
+        [TestMethod]
+        public void formatter_withTemplatedRelationPatternNotRel_NotSure()
+        {
+            // arrange
+            _basicResource.Relations.AddQualifier("eg", "http://example.org/relations/{shouldBeRel}");
+            _basicResource.Relations.Add("eg:", new Link { Href = "somelinkref" });
+
+            // act
+            var result = TestHelpers.Format.FormatObject(_basicResource, _formatter);
+
+            var o = JObject.Parse(result);
+            var item = o["collection"]["items"][0];
+            var links = item["links"];
+            var rel = links[0]["rel"].ToString();
+
+            // assert
+            Assert.Inconclusive("Should this throw an error?");
+        }
     }
 }

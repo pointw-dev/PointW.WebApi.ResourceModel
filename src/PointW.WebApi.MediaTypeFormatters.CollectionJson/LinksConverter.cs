@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using PointW.WebApi.ResourceModel;
 using Newtonsoft.Json;
 
@@ -19,16 +20,9 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
 
             writer.WriteStartArray();
 
-            // TODO: Collection+JSON does not support curies, so must expand curie'd rels
-            // if (links.Qualifiers.Any())
-            // {
-            //     WriteCuries(writer, links.Qualifiers);
-            // }
-
-
             foreach (var link in links)
             {
-                var rel = link.Key;
+                var rel = ExpandRel(link.Key, links);
                 var theLink = link.Value;
                 writer.WriteStartObject();
 
@@ -41,6 +35,24 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
             }
 
             writer.WriteEndArray();
+        }
+
+
+
+        private static string ExpandRel(string rel, LinkCollection links)
+        {
+            if (!links.Qualifiers.Any() || !rel.Contains((":"))) return rel;
+
+            var prefix = rel.Split(':')[0];
+            var suffix = rel.Split(':')[1];
+
+            var qualifier = links.Qualifiers.FirstOrDefault(q => q.Name == prefix);
+
+            if (qualifier == null) return rel;
+
+            if (!qualifier.IsTemplated) return qualifier.Href + suffix;
+
+            return qualifier.Href.Replace("{rel}", suffix);
         }
 
 
@@ -73,19 +85,6 @@ namespace PointW.WebApi.MediaTypeFormatters.CollectionJson
             writer.WritePropertyName(propName);
             writer.WriteValue(propValue);
         }
-
-
-
-        // private static void WriteCuries(JsonWriter writer, IEnumerable<Link> curies)
-        // {
-        //     writer.WritePropertyName("curies");
-        //     writer.WriteStartArray();
-        //     foreach (var curie in curies)
-        //     {
-        //         WriteLink(writer, curie);
-        //     }
-        //     writer.WriteEndArray();
-        // }
 
 
 
