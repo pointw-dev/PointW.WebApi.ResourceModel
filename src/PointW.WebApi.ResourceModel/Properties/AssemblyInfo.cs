@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("PointW.WebApi.ResourceModel")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A set of classes to model Web API resources, decoupled from their representations in any media type. Packaged with various media type formatters that use this resource model to produce representations.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("pointw.com")]
 [assembly: AssemblyProduct("PointW.WebApi.ResourceModel")]

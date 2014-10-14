@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("PointW.WebApi.MediaTypeFormatters.Hal")]
-[assembly: AssemblyDescription("HAL media type formatter for Web API services.")]
+[assembly: AssemblyDescription("Formats PointW.WebApi.ResourceModel objects as representations in Collection+JSON media type.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("pointw.com")]
 [assembly: AssemblyProduct("PointW.WebApi.MediaTypeFormatters.Hal")]

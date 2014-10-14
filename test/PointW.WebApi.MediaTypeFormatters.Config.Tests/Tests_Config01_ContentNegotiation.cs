@@ -25,44 +25,6 @@ namespace PointW.WebApi.MediaTypeFormatters.Config.Tests
 
 
 
-        private void ConfigureHalExclusively(bool asJson = false)
-        {
-            _config.Formatters.Clear();
-            _config.Formatters.Add(new HalJsonMediaTypeFormatter(asJson: asJson));
-            _config.Services.Replace(typeof(IContentNegotiator), new DefaultContentNegotiator(excludeMatchOnTypeOnly: true));
-        }
-
-
-
-        private void ConfigureCjExclusively(bool asJson = false)
-        {
-            _config.Formatters.Clear();
-            _config.Formatters.Add(new CollectionJsonMediaTypeFormatter(asJson: asJson));
-            _config.Services.Replace(typeof(IContentNegotiator), new DefaultContentNegotiator(excludeMatchOnTypeOnly: true));
-        }
-
-
-
-        private void ConfigureHalThenCj()
-        {
-            _config.Formatters.Clear();
-            _config.Formatters.Add(new HalJsonMediaTypeFormatter());
-            _config.Formatters.Add(new CollectionJsonMediaTypeFormatter());
-        }
-
-
-
-
-        private void ConfigureCjThenHal()
-        {
-            _config.Formatters.Clear();
-            _config.Formatters.Add(new HalJsonMediaTypeFormatter());
-            _config.Formatters.Add(new CollectionJsonMediaTypeFormatter());
-        }
-
-
-
-
         [TestInitialize]
         public void Setup()
         {
@@ -300,6 +262,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Config.Tests
             // assert
             contentType.Should().Contain("application/vnd.collection+json"); // That's what you asked for, that's what we give you Hal IS Json after all
         }
+
 
 
         [TestMethod]
@@ -754,6 +717,33 @@ namespace PointW.WebApi.MediaTypeFormatters.Config.Tests
 
             // assert
             body.Should().Contain("<Name>alpha</Name>");
+        }
+
+
+
+        private void ConfigureHalExclusively(bool asJson = false)
+        {
+            _config.Formatters.Clear();
+            _config.Formatters.Add(new HalJsonMediaTypeFormatter(asJson: asJson));
+            _config.Services.Replace(typeof(IContentNegotiator), new DefaultContentNegotiator(excludeMatchOnTypeOnly: true));
+        }
+
+
+
+        private void ConfigureCjExclusively(bool asJson = false)
+        {
+            _config.Formatters.Clear();
+            _config.Formatters.Add(new CollectionJsonMediaTypeFormatter(asJson: asJson));
+            _config.Services.Replace(typeof(IContentNegotiator), new DefaultContentNegotiator(excludeMatchOnTypeOnly: true));
+        }
+
+
+
+        private void ConfigureHalThenCj()
+        {
+            _config.Formatters.Clear();
+            _config.Formatters.Add(new HalJsonMediaTypeFormatter());
+            _config.Formatters.Add(new CollectionJsonMediaTypeFormatter());
         }
     }
 }
