@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using FluentAssertions;
 using PointW.WebApi.ResourceModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -229,7 +230,7 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal.Tests
             var resource = new {Name = "Pat"};
 
             //act
-            var result = TestHelpers.Format.FormatObject(resource, _formatter);
+            var result = TestHelpers.Format.FormatObject(resource, _formatter);            
 
             // assert
             result.Should().NotContain("_links");

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Resources;
@@ -11,7 +12,7 @@ namespace PointW.WebApi.MediaTypeFormatters.TestHelpers
 {
     public class Format
     {
-        public static string FormatObject(object toFormat, BaseJsonMediaTypeFormatter formatter)
+        public static string FormatObject(object toFormat, JsonMediaTypeFormatter formatter)
         {
             string result;
             using (var stream = new MemoryStream())
@@ -20,12 +21,13 @@ namespace PointW.WebApi.MediaTypeFormatters.TestHelpers
                 stream.Seek(0, SeekOrigin.Begin);
                 result = new StreamReader(stream).ReadToEnd();
             }
+            Console.WriteLine(result);
             return result;
         }
 
 
 
-        public static TResource PerformRoundTrip<TResource>(object o, BaseJsonMediaTypeFormatter formatter) where TResource : class
+        public static TResource PerformRoundTrip<TResource>(object o, JsonMediaTypeFormatter formatter) where TResource : class
         {
             var json = FormatObject(o, formatter);
 
