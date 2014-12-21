@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package >
+	<metadata>
+		<id>$id$</id>
+		<version>$version$</version>
+		<title>PointW Web API - Resource Model</title>
+		<authors>$author$</authors>
+		<owners>$author$</owners>
+		<projectUrl>https://github.com/biscuit314/PointW.WebApi.ResourceModel</projectUrl>
+		<iconUrl>https://github.com/biscuit314/PointW.WebApi.ResourceModel/docs/img/pointw.png</iconUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>$description$</description>
+		<releaseNotes>Initial load into NuGet.</releaseNotes>
+		<copyright>Copyright 2014</copyright>
+
+		<references>
+			<reference file="PointW.WebApi.ResourceModel.dll" />
+			<reference file="PointW.WebApi.MediaTypeFormatters.Hal.dll" />
+			<reference file="PointW.WebApi.MediaTypeFormatters.CollectionJson.dll" />
+		</references>
+			
+		<tags>PointW WebApi MediaType CollectionJson HAL</tags>
+	</metadata>
+
+	<files>
+		<file src="..\PointW.WebApi.MediaTypeFormatters.Hal\bin\Release\PointW.WebApi.Media*.dll" target="lib\net45" /> 
+		<file src="..\PointW.WebApi.MediaTypeFormatters.CollectionJson\bin\Release\PointW.WebApi.Media*.dll" target="lib\net45" />
+	</files>	
+</package>
