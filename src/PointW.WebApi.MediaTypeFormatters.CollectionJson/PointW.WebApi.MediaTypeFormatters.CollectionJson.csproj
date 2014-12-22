@@ -32,7 +32,7 @@
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -60,12 +60,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-<!--
-    <ProjectReference Include="..\..\test\PointW.WebApi.ResourceModel.TestResources\PointW.WebApi.ResourceModel.TestResources.csproj">
-      <Project>{EC6979C6-0A13-490A-B1F1-D3E257A7985F}</Project>
-      <Name>PointW.WebApi.ResourceModel.TestResources</Name>
-    </ProjectReference>
--->    
     <ProjectReference Include="..\PointW.WebApi.ResourceModel\PointW.WebApi.ResourceModel.csproj">
       <Project>{E696A2C9-C752-4BC0-AAF9-AE375017C2DF}</Project>
       <Name>PointW.WebApi.ResourceModel</Name>
