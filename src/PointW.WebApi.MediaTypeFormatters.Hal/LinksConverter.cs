@@ -63,6 +63,12 @@ namespace PointW.WebApi.MediaTypeFormatters.Hal
                 writer.WriteValue(true);
             }
 
+            if (string.IsNullOrEmpty(link.Profile) == false)
+            {
+                writer.WritePropertyName("profile");
+                writer.WriteValue(link.Profile);
+            }
+
             writer.WriteEndObject();
         }
 
